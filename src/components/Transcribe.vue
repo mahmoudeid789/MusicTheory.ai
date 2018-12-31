@@ -26,7 +26,17 @@
                         Upload an
                         <span>audio file</span>
                     </p>
-                    <v-btn outline large fab color="primary" class="uploadButton">
+
+                    <v-btn
+                        outline
+                        large
+                        fab
+                        color="primary"
+                        class="uploadButton"
+                        id="uploadButton"
+                        tabindex="0"
+                        @click="rotate"
+                    >
                         <v-icon>add</v-icon>
                         <div class="inputWrapper">
                             <input type="file" id="file-input">
@@ -82,7 +92,8 @@ export default {
             loader: null,
             visualizer: null,
             player: null,
-            playerHovered: false
+            playerHovered: false,
+            rotated: 90
         };
     },
     mounted: function() {
@@ -133,19 +144,18 @@ export default {
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
-                    // Velocity(
-                    //     document.getElementById("visualizerLoader"),
-                    //     { opacity: 0 },
-                    //     { display: "none" }
-                    // );
-                    // setTimeout(() => {
-                    //     Velocity(
-                    //         document.getElementById("canvasWrap"),
-                    //         { opacity: 1 },
-                    //         { display: "block" }
-                    //     );
-                    // }, 500);
-
+                    Velocity(
+                        document.getElementById("visualizerLoader"),
+                        { opacity: 0 },
+                        { display: "none" }
+                    );
+                    setTimeout(() => {
+                        Velocity(
+                            document.getElementById("canvasWrap"),
+                            { opacity: 1 },
+                            { display: "block" }
+                        );
+                    }, 500);
                     this.visualizer = new mm.Visualizer(
                         noteSequence,
                         document.getElementById("canvas"),
@@ -160,6 +170,11 @@ export default {
                     console.log("done");
                 }
             });
+        },
+        rotate() {
+            document.getElementById("uploadButton").style.transform =
+                "rotate(" + this.rotated.toString() + "deg)";
+            this.rotated += 90;
         }
     }
 };
@@ -197,6 +212,7 @@ export default {
                 font-size: 16px;
                 font-weight: 300;
                 margin-top: -30px;
+                opacity: 0.8;
             }
         }
         #loaded {
@@ -205,7 +221,6 @@ export default {
             opacity: 0;
             div,
             p {
-                // display: inline-block;
                 margin: 20px;
             }
             .introduction {
@@ -214,12 +229,11 @@ export default {
                 width: 60%;
                 margin: auto;
                 font-weight: 300;
-                .musicLoader {
-                    margin: auto;
-                }
                 p {
                     font-size: 16px;
                     opacity: 0.8;
+                    line-height: 5px;
+                    padding-top: 20px;
                     font-weight: 300;
                     span {
                         color: #e342f8;
@@ -228,7 +242,11 @@ export default {
                 .uploadButton {
                     i {
                         font-size: 40px;
-                        margin-top: -20px;
+                        margin-top: -35px;
+                        padding-top: 15px;
+                        height: 70px;
+                        transform-origin: 50% 50%;
+                        transition: 0.5s;
                     }
                     .inputWrapper {
                         width: 72px;
