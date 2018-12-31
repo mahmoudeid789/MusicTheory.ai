@@ -38,11 +38,11 @@
             <div class="visualizerLoader" id="visualizerLoader">
                 <p>
                     Transcribing
-                    <span class="fileName">{{fileName}}</span>...
+                    <span class="fileName">{{fileName}}...</span>
                     <br>
                     <span
                         class="cpuWarning"
-                    >Larger files will take longer to transcribe, and may slow down your browser.</span>
+                    >Please wait while your neural networks are hard at work!</span>
                 </p>
             </div>
             <div class="canvasWrap" id="canvasWrap">
@@ -130,31 +130,21 @@ export default {
             document.getElementById("loaded").style.opacity = "0";
             document.getElementById("visualizerLoader").style.display = "block";
             document.getElementById("visualizerLoader").style.opacity = "1";
-            // Velocity(
-            //     document.getElementById("loaded"),
-            //     { opacity: 0 },
-            //     { display: "none" }
-            // );
-            // Velocity(
-            //     document.getElementById("visualizerLoader"),
-            //     { opacity: 1 },
-            //     { display: "block" }
-            // );
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
-                    Velocity(
-                        document.getElementById("visualizerLoader"),
-                        { opacity: 0 },
-                        { display: "none" }
-                    );
-                    setTimeout(() => {
-                        Velocity(
-                            document.getElementById("canvasWrap"),
-                            { opacity: 1 },
-                            { display: "block" }
-                        );
-                    }, 500);
+                    // Velocity(
+                    //     document.getElementById("visualizerLoader"),
+                    //     { opacity: 0 },
+                    //     { display: "none" }
+                    // );
+                    // setTimeout(() => {
+                    //     Velocity(
+                    //         document.getElementById("canvasWrap"),
+                    //         { opacity: 1 },
+                    //         { display: "block" }
+                    //     );
+                    // }, 500);
 
                     this.visualizer = new mm.Visualizer(
                         noteSequence,
@@ -269,69 +259,11 @@ export default {
         .visualizerLoader {
             text-align: center;
             display: none;
-            .loader,
-            .loader:before,
-            .loader:after {
-                background: #ffffff;
-                -webkit-animation: load1 1s infinite ease-in-out;
-                animation: load1 1s infinite ease-in-out;
-                width: 1em;
-                height: 4em;
-            }
-            .loader {
-                color: #ffffff;
-                text-indent: -9999em;
-                margin: 88px auto;
-                position: relative;
-                font-size: 11px;
-                -webkit-transform: translateZ(0);
-                -ms-transform: translateZ(0);
-                transform: translateZ(0);
-                -webkit-animation-delay: -0.16s;
-                animation-delay: -0.16s;
-            }
-            .loader:before,
-            .loader:after {
-                position: absolute;
-                top: 0;
-                content: "";
-            }
-            .loader:before {
-                left: -1.5em;
-                -webkit-animation-delay: -0.32s;
-                animation-delay: -0.32s;
-            }
-            .loader:after {
-                left: 1.5em;
-            }
-            @-webkit-keyframes load1 {
-                0%,
-                80%,
-                100% {
-                    box-shadow: 0 0;
-                    height: 4em;
-                }
-                40% {
-                    box-shadow: 0 -2em;
-                    height: 5em;
-                }
-            }
-            @keyframes load1 {
-                0%,
-                80%,
-                100% {
-                    box-shadow: 0 0;
-                    height: 4em;
-                }
-                40% {
-                    box-shadow: 0 -2em;
-                    height: 5em;
-                }
-            }
             p {
                 font-size: 19px;
-                margin-top: 30px;
+                margin-top: 65px;
                 font-weight: 300;
+                line-height: 35px;
                 .fileName {
                     color: #8c363f;
                     color: #952aa3;
