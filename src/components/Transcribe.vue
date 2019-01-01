@@ -164,7 +164,10 @@ export default {
                         config
                     );
                     //Setup note player
-                    this.player = new mm.Player(false, {
+                    this.player = new mm.SoundFontPlayer(
+                        "https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus"
+                    );
+                    this.player.callbackObject = {
                         run: note => this.visualizer.redraw(note),
                         stop: () => {
                             console.log("done");
@@ -173,8 +176,13 @@ export default {
                                 { backgroundColor: "#283a44" },
                                 { duration: 250 }
                             );
+                            Velocity(
+                                document.getElementById("playButton"),
+                                { opacity: 1 },
+                                { duration: 300 }
+                            );
                         }
-                    });
+                    };
                     this.noteSequence = noteSequence;
                 });
         },
@@ -347,16 +355,13 @@ export default {
             }
             #playButton {
                 position: absolute;
-                box-shadow: 0 6px 10px 0px rgba(0, 0, 0, 0.2);
                 top: 100px;
                 right: 47.5%;
                 opacity: 0;
                 z-index: 3;
-                background: rgba(227, 66, 248, 0.1) !important;
+                background: rgba(227, 66, 248, 0.05) !important;
                 transition: box-shadow 0.3s;
-                &:hover {
-                    box-shadow: 3px 10px 10px 0px rgba(0, 0, 0, 0.2);
-                }
+
                 i {
                     font-size: 40px;
                 }
