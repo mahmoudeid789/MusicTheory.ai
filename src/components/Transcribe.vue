@@ -53,7 +53,7 @@
             </div>
             <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
-                <v-btn outline id="playButton" fab dark large color="primary" @click="play">
+                <v-btn id="playButton" fab dark large outline color="primary" @click="play">
                     <v-icon dark>play_arrow</v-icon>
                 </v-btn>
             </div>
@@ -221,7 +221,7 @@ export default {
             z-index: 2;
             display: none;
             opacity: 0;
-            background: #0a2338;
+            background: #144166;
         }
         #loading {
             text-align: center;
@@ -329,6 +329,7 @@ export default {
                 right: 47.5%;
                 opacity: 0;
                 z-index: 3;
+                background: rgba(227, 66, 248, 0.1) !important;
                 i {
                     font-size: 40px;
                 }
