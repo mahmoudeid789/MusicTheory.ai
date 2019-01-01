@@ -325,6 +325,7 @@ export default {
             }
             #playButton {
                 position: absolute;
+                box-shadow: 0 6px 10px 0px rgba(0, 0, 0, 0.2);
                 top: 100px;
                 right: 47.5%;
                 opacity: 0;
