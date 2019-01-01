@@ -7,12 +7,8 @@
                 </span>MusicTheory.ai
             </p>
         </div>
-        <div
-            class="player"
-            id="player"
-            @mouseover="playerHovered = !playerHovered"
-            @mouseout="playerHovered = !playerHovered"
-        >
+        <div class="player" id="player">
+            <div id="shader"></div>
             <div id="loading">
                 <div class="musicLoader">
                     <Loader/>
@@ -57,19 +53,9 @@
             </div>
             <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
-                <transition name="fade">
-                    <v-btn
-                        outline
-                        class="playButton"
-                        fab
-                        dark
-                        large
-                        color="primary"
-                        v-if="playerHovered"
-                    >
-                        <v-icon dark>play_arrow</v-icon>
-                    </v-btn>
-                </transition>
+                <v-btn outline id="playButton" fab dark large color="primary" @click="play">
+                    <v-icon dark>play_arrow</v-icon>
+                </v-btn>
             </div>
         </div>
     </div>
@@ -90,9 +76,9 @@ export default {
             model: null,
             fileName: "",
             loader: null,
-            visualizer: null,
-            player: null,
-            playerHovered: false,
+            noteSequence: null, //Transcribed music turned into magenta.js NS
+            visualizer: null, //Draws noteSequence
+            player: null, //Plays noteSequence
             rotated: 90
         };
     },
@@ -122,7 +108,7 @@ export default {
                     );
                 }, 550);
             }, 100);
-
+            //Handle audio input
             const fileInput = document.getElementById("file-input");
             fileInput.addEventListener("change", e => {
                 this.transcribeFile(e.target.files[0]);
@@ -130,13 +116,7 @@ export default {
             });
         },
         async transcribeFile(file) {
-            const config = {
-                noteHeight: 8,
-                pixelsPerTimeStep: 5,
-                noteSpacing: 1,
-                noteRGB: "234, 234, 236",
-                activeNoteRGB: "240, 84, 119"
-            };
+            //Hard coded transition; can't use velocity in async (target for workaround fix)
             document.getElementById("loaded").style.display = "none";
             document.getElementById("loaded").style.opacity = "0";
             document.getElementById("visualizerLoader").style.display = "block";
@@ -144,6 +124,7 @@ export default {
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
+                    //Transition into canvas
                     Velocity(
                         document.getElementById("visualizerLoader"),
                         { opacity: 0 },
@@ -155,23 +136,49 @@ export default {
                             { opacity: 1 },
                             { display: "block" }
                         );
+                        setTimeout(() => {
+                            Velocity(
+                                document.getElementById("playButton"),
+                                { opacity: 1 },
+                                { duration: 300 }
+                            );
+                            Velocity(
+                                document.getElementById("shader"),
+                                { opacity: 0.2 },
+                                { display: "block" }
+                            );
+                        }, 200);
                     }, 500);
+
+                    //Setup note visualizer
+                    const config = {
+                        noteHeight: 8,
+                        pixelsPerTimeStep: 5,
+                        noteSpacing: 1,
+                        noteRGB: "234, 234, 236",
+                        activeNoteRGB: "118,75,124"
+                    };
                     this.visualizer = new mm.Visualizer(
                         noteSequence,
                         document.getElementById("canvas"),
                         config
                     );
+                    //Setup note player
+                    this.player = new mm.Player(false, {
+                        run: note => this.visualizer.redraw(note),
+                        stop: () => {
+                            console.log("done");
+                        }
+                    });
+                    this.noteSequence = noteSequence;
                 });
         },
-        playNotes() {
-            this.player = new mm.Player(false, {
-                run: note => this.visualizer.redraw(note),
-                stop: () => {
-                    console.log("done");
-                }
-            });
+        play() {
+            //Play music
+            this.player.start(this.noteSequence);
         },
         rotate() {
+            //Simple animation on upload button click
             document.getElementById("uploadButton").style.transform =
                 "rotate(" + this.rotated.toString() + "deg)";
             this.rotated += 90;
@@ -204,7 +211,18 @@ export default {
         width: 100%;
         height: 300px;
         padding: 40px 0;
+        position: relative;
         transition: 0.25s;
+        #shader {
+            width: 100%;
+            height: 100%;
+            margin-top: -40px;
+            position: absolute;
+            z-index: 2;
+            display: none;
+            opacity: 0;
+            background: #0a2338;
+        }
         #loading {
             text-align: center;
             margin-top: -40px;
@@ -303,13 +321,17 @@ export default {
                 width: 100% !important;
                 image-rendering: pixelated;
                 height: 100% !important;
+                color: #764b7c;
             }
-            .playButton {
+            #playButton {
                 position: absolute;
-                top: 240px;
+                top: 100px;
                 right: 47.5%;
-                transition: opacity 0.25s;
-                opacity: 1;
+                opacity: 0;
+                z-index: 3;
+                i {
+                    font-size: 40px;
+                }
             }
         }
     }
