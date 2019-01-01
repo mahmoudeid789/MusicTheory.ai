@@ -168,6 +168,11 @@ export default {
                         run: note => this.visualizer.redraw(note),
                         stop: () => {
                             console.log("done");
+                            Velocity(
+                                document.getElementById("player"),
+                                { backgroundColor: "#283a44" },
+                                { duration: 250 }
+                            );
                         }
                     });
                     this.noteSequence = noteSequence;
@@ -176,6 +181,21 @@ export default {
         play() {
             //Play music
             this.player.start(this.noteSequence);
+            Velocity(
+                document.getElementById("playButton"),
+                { opacity: 0 },
+                { duration: 300 }
+            );
+            Velocity(
+                document.getElementById("shader"),
+                { opacity: 0 },
+                { display: "none" }
+            );
+            Velocity(
+                document.getElementById("player"),
+                { backgroundColor: "#2b3f49" },
+                { duration: 250 }
+            );
         },
         rotate() {
             //Simple animation on upload button click
@@ -207,7 +227,9 @@ export default {
         }
     }
     .player {
-        background: #2a3942;
+        background: #283a44;
+        // background: #2b3f49;
+
         width: 100%;
         height: 300px;
         padding: 40px 0;
@@ -221,7 +243,7 @@ export default {
             z-index: 2;
             display: none;
             opacity: 0;
-            background: #144166;
+            background: #232f36;
         }
         #loading {
             text-align: center;
@@ -331,6 +353,10 @@ export default {
                 opacity: 0;
                 z-index: 3;
                 background: rgba(227, 66, 248, 0.1) !important;
+                transition: box-shadow 0.3s;
+                &:hover {
+                    box-shadow: 3px 10px 10px 0px rgba(0, 0, 0, 0.2);
+                }
                 i {
                     font-size: 40px;
                 }
