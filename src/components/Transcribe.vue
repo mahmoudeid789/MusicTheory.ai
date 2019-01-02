@@ -65,7 +65,7 @@
 <script>
 import Loader from "./Loader";
 import { setTimeout } from "timers";
-import * as mm from '@magenta/music';
+import * as mm from "@magenta/music";
 
 export default {
     name: "Transcribe",
@@ -81,6 +81,7 @@ export default {
             noteSequence: null, //Transcribed music turned into magenta.js NS
             visualizer: null, //Draws noteSequence
             player: null, //Plays noteSequence
+            canvasLoaded: false,
             playerState: "unstarted",
             rotated: 90
         };
@@ -98,17 +99,15 @@ export default {
         initUI() {
             //Use timeout to smoothen load transition
             setTimeout(() => {
-                Velocity(
-                    document.getElementById("loading"),
-                    { opacity: 0 },
-                    { display: "none" }
-                );
+                Velocity(document.getElementById("loading"), {
+                    opacity: 0,
+                    display: "none"
+                });
                 setTimeout(() => {
-                    Velocity(
-                        document.getElementById("loaded"),
-                        { opacity: 1 },
-                        { display: "block" }
-                    );
+                    Velocity(document.getElementById("loaded"), {
+                        opacity: 1,
+                        display: "block"
+                    });
                 }, 550);
             }, 100);
             //Handle audio input
@@ -128,28 +127,25 @@ export default {
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
                     //Transition into canvas
-                    Velocity(
-                        document.getElementById("visualizerLoader"),
-                        { opacity: 0 },
-                        { display: "none" }
-                    );
+                    Velocity(document.getElementById("visualizerLoader"), {
+                        opacity: 0,
+                        display: "none"
+                    });
                     setTimeout(() => {
-                        Velocity(
-                            document.getElementById("canvasWrap"),
-                            { opacity: 1 },
-                            { display: "block" }
-                        );
+                        Velocity(document.getElementById("canvasWrap"), {
+                            opacity: 1,
+                            display: "block"
+                        });
                         setTimeout(() => {
                             Velocity(
                                 document.getElementById("playButton"),
                                 { opacity: 1 },
                                 { duration: 300 }
                             );
-                            Velocity(
-                                document.getElementById("shader"),
-                                { opacity: 0.2 },
-                                { display: "block" }
-                            );
+                            Velocity(document.getElementById("shader"), {
+                                opacity: 0.2,
+                                display: "block"
+                            });
                         }, 200);
                     }, 500);
 
@@ -166,6 +162,7 @@ export default {
                         document.getElementById("canvas"),
                         config
                     );
+                    this.canvasLoaded = true;
                     //Setup note player
                     this.player = new mm.Player();
                     this.player = new mm.SoundFontPlayer(
@@ -175,6 +172,7 @@ export default {
                         run: note => this.visualizer.redraw(note),
                         stop: () => {
                             console.log("done");
+                            this.playerState = "done";
                             // Velocity(
                             //     document.getElementById("player"),
                             //     { backgroundColor: "#283a44" },
@@ -191,51 +189,53 @@ export default {
                 });
         },
         async togglePlayer() {
-            //Pause doesn't work.. ?porque?
-            if (this.playerState === "unstarted") {
-                this.player.loadSamples(this.noteSequence).then(() => {
-                    this.player.start(this.noteSequence);
-                });
-
-                this.playerState = "playing";
-            } else if (this.playerState === "playing") {
-                this.player.pause();
-                this.playerState = "paused";
-            } else {
-                this.player.resume();
-                this.playerState = "playing";
+            if (this.canvasLoaded === true) {
+                if (
+                    this.playerState === "unstarted" ||
+                    this.playerState === "done"
+                ) {
+                    this.player.loadSamples(this.noteSequence).then(() => {
+                        this.player.start(this.noteSequence);
+                    });
+                    this.playerState = "playing";
+                } else if (this.playerState === "playing") {
+                    this.player.pause();
+                    this.playerState = "paused";
+                } else if (this.playerState === "paused") {
+                    this.player.resume();
+                    this.playerState = "playing";
+                }
             }
         },
-        playNS() {
-            //Play music (NS = Note Sequence)
-            this.isPlaying = true;
-            if (this.isPaused === true) {
-                this.player.resume();
-            } else {
-                this.player.start(this.noteSequence);
-            }
-            Velocity(
-                document.getElementById("playButton"),
-                { opacity: 0 },
-                { duration: 300 }
-            );
-            Velocity(
-                document.getElementById("shader"),
-                { opacity: 0 },
-                { display: "none" }
-            );
-            Velocity(
-                document.getElementById("player"),
-                { backgroundColor: "#2b3f49" },
-                { duration: 250 }
-            );
-        },
-        pauseNS() {
-            //Pause music
-            this.player.stop();
-            this.isPlaying = false;
-            this.isPaused = true;
-        },
+        // playNS() {
+        //     //Play music (NS = Note Sequence)
+        //     this.isPlaying = true;
+        //     if (this.isPaused === true) {
+        //         this.player.resume();
+        //     } else {
+        //         this.player.start(this.noteSequence);
+        //     }
+        //     Velocity(
+        //         document.getElementById("playButton"),
+        //         { opacity: 0 },
+        //         { duration: 300 }
+        //     );
+        //     Velocity(
+        //         document.getElementById("shader"),
+        //         { opacity: 0, display: "none" },
+        //     );
+        //     Velocity(
+        //         document.getElementById("player"),
+        //         { backgroundColor: "#2b3f49" },
+        //         { duration: 250 }
+        //     );
+        // },
+        // pauseNS() {
+        //     //Pause music
+        //     this.player.stop();
+        //     this.isPlaying = false;
+        //     this.isPaused = true;
+        // }
         rotate() {
             //Simple animation on upload button click
             document.getElementById("uploadButton").style.transform =
@@ -313,12 +313,12 @@ export default {
                 font-weight: 300;
                 p {
                     font-size: 16px;
-                    opacity: 0.8;
+                    opacity: 0.85;
                     line-height: 5px;
                     padding-top: 20px;
                     font-weight: 300;
                     span {
-                        color: #e342f8;
+                        color: #e946ff;
                     }
                 }
                 .uploadButton {
@@ -365,12 +365,12 @@ export default {
                 font-weight: 300;
                 line-height: 35px;
                 .fileName {
-                    color: #8c363f;
-                    color: #952aa3;
+                    color: #b836c9;
                 }
                 .cpuWarning {
                     font-size: 17px;
                     opacity: 0.7;
+                    font-weight: 200;
                 }
             }
         }
