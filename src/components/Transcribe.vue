@@ -65,6 +65,7 @@
 <script>
 import Loader from "./Loader";
 import { setTimeout } from "timers";
+import * as mm from '@magenta/music';
 
 export default {
     name: "Transcribe",
@@ -166,6 +167,7 @@ export default {
                         config
                     );
                     //Setup note player
+                    this.player = new mm.Player();
                     this.player = new mm.SoundFontPlayer(
                         "https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus"
                     );
@@ -189,6 +191,7 @@ export default {
                 });
         },
         async togglePlayer() {
+            //Pause doesn't work.. ?porque?
             if (this.playerState === "unstarted") {
                 this.player.loadSamples(this.noteSequence).then(() => {
                     this.player.start(this.noteSequence);
