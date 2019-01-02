@@ -8,7 +8,7 @@
             </p>
         </div>
         <div class="player" id="player" v-ripple @click="togglePlayer">
-            <div id="shader"></div>
+            <div id="shader" @mouseenter="playerHovered = true" @mouseleave="playerHovered = false"></div>
             <div id="loading">
                 <div class="musicLoader">
                     <Loader/>
@@ -53,7 +53,7 @@
             </div>
             <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
-                <v-btn id="playButton" fab dark large outline color="primary">
+                <v-btn v-if="playerHovered" id="playButton" fab dark large outline color="primary">
                     <v-icon dark>play_arrow</v-icon>
                 </v-btn>
             </div>
@@ -82,6 +82,7 @@ export default {
             visualizer: null, //Draws noteSequence
             player: null, //Plays noteSequence
             canvasLoaded: false,
+            playerHovered: false,
             playerState: "unstarted",
             rotated: 90
         };
@@ -137,11 +138,11 @@ export default {
                             display: "block"
                         });
                         setTimeout(() => {
-                            Velocity(
-                                document.getElementById("playButton"),
-                                { opacity: 1 },
-                                { duration: 300 }
-                            );
+                            // Velocity(
+                            //     document.getElementById("playButton"),
+                            //     { opacity: 1 },
+                            //     { duration: 300 }
+                            // );
                             Velocity(document.getElementById("shader"), {
                                 opacity: 0.2,
                                 display: "block"
@@ -189,8 +190,10 @@ export default {
                 });
         },
         async togglePlayer() {
+            //Handles clicks on the player depending on playerState
             if (this.canvasLoaded === true) {
                 if (
+                    //Player not started
                     this.playerState === "unstarted" ||
                     this.playerState === "done"
                 ) {
@@ -198,12 +201,26 @@ export default {
                         this.player.start(this.noteSequence);
                     });
                     this.playerState = "playing";
+                    Velocity(document.getElementById("shader"), {
+                        opacity: 0,
+                        display: "none"
+                    });
                 } else if (this.playerState === "playing") {
+                    //Player playing
                     this.player.pause();
                     this.playerState = "paused";
+                    Velocity(document.getElementById("shader"), {
+                        opacity: 0.2,
+                        display: "block"
+                    });
                 } else if (this.playerState === "paused") {
+                    //Player paused
                     this.player.resume();
                     this.playerState = "playing";
+                    Velocity(document.getElementById("shader"), {
+                        opacity: 0,
+                        display: "block"
+                    });
                 }
             }
         },
