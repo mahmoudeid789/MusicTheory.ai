@@ -7,7 +7,7 @@
                 </span>MusicTheory.ai
             </p>
         </div>
-        <div class="player" id="player">
+        <div class="player" id="player" v-ripple @click="togglePlayer">
             <div id="shader"></div>
             <div id="loading">
                 <div class="musicLoader">
@@ -53,11 +53,12 @@
             </div>
             <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
-                <v-btn id="playButton" fab dark large outline color="primary" @click="play">
+                <v-btn id="playButton" fab dark large outline color="primary">
                     <v-icon dark>play_arrow</v-icon>
                 </v-btn>
             </div>
         </div>
+        <p>{{playerState}}</p>
     </div>
 </template>
 
@@ -79,6 +80,7 @@ export default {
             noteSequence: null, //Transcribed music turned into magenta.js NS
             visualizer: null, //Draws noteSequence
             player: null, //Plays noteSequence
+            playerState: "unstarted",
             rotated: 90
         };
     },
@@ -171,24 +173,44 @@ export default {
                         run: note => this.visualizer.redraw(note),
                         stop: () => {
                             console.log("done");
-                            Velocity(
-                                document.getElementById("player"),
-                                { backgroundColor: "#283a44" },
-                                { duration: 250 }
-                            );
-                            Velocity(
-                                document.getElementById("playButton"),
-                                { opacity: 1 },
-                                { duration: 300 }
-                            );
+                            // Velocity(
+                            //     document.getElementById("player"),
+                            //     { backgroundColor: "#283a44" },
+                            //     { duration: 250 }
+                            // );
+                            // Velocity(
+                            //     document.getElementById("playButton"),
+                            //     { opacity: 1 },
+                            //     { duration: 300 }
+                            // );
                         }
                     };
                     this.noteSequence = noteSequence;
                 });
         },
-        play() {
-            //Play music
-            this.player.start(this.noteSequence);
+        async togglePlayer() {
+            if (this.playerState === "unstarted") {
+                this.player.loadSamples(this.noteSequence).then(() => {
+                    this.player.start(this.noteSequence);
+                });
+
+                this.playerState = "playing";
+            } else if (this.playerState === "playing") {
+                this.player.pause();
+                this.playerState = "paused";
+            } else {
+                this.player.resume();
+                this.playerState = "playing";
+            }
+        },
+        playNS() {
+            //Play music (NS = Note Sequence)
+            this.isPlaying = true;
+            if (this.isPaused === true) {
+                this.player.resume();
+            } else {
+                this.player.start(this.noteSequence);
+            }
             Velocity(
                 document.getElementById("playButton"),
                 { opacity: 0 },
@@ -204,6 +226,12 @@ export default {
                 { backgroundColor: "#2b3f49" },
                 { duration: 250 }
             );
+        },
+        pauseNS() {
+            //Pause music
+            this.player.stop();
+            this.isPlaying = false;
+            this.isPaused = true;
         },
         rotate() {
             //Simple animation on upload button click
@@ -243,6 +271,9 @@ export default {
         padding: 40px 0;
         position: relative;
         transition: 0.25s;
+        &:hover {
+            cursor: pointer;
+        }
         #shader {
             width: 100%;
             height: 100%;
