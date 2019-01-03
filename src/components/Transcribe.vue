@@ -169,6 +169,7 @@ export default {
                     this.player = new mm.SoundFontPlayer(
                         "https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus"
                     );
+                    this.player.loadSamples(noteSequence);
                     this.player.callbackObject = {
                         run: note => this.visualizer.redraw(note),
                         stop: () => {
@@ -197,12 +198,11 @@ export default {
                     this.playerState === "unstarted" ||
                     this.playerState === "done"
                 ) {
-                    this.player.loadSamples(this.noteSequence).then(() => {
-                        this.player.start(this.noteSequence);
-                    });
+                    this.player.resumeContext();
+                    this.player.start(this.noteSequence);
                     this.playerState = "playing";
                     Velocity(document.getElementById("shader"), {
-                        opacity: 0,
+                        opacity: 0.2,
                         display: "none"
                     });
                 } else if (this.playerState === "playing") {
@@ -210,7 +210,7 @@ export default {
                     this.player.pause();
                     this.playerState = "paused";
                     Velocity(document.getElementById("shader"), {
-                        opacity: 0.2,
+                        opacity: 0,
                         display: "block"
                     });
                 } else if (this.playerState === "paused") {
@@ -218,7 +218,7 @@ export default {
                     this.player.resume();
                     this.playerState = "playing";
                     Velocity(document.getElementById("shader"), {
-                        opacity: 0,
+                        opacity: 0.2,
                         display: "block"
                     });
                 }
@@ -302,7 +302,7 @@ export default {
             z-index: 2;
             display: none;
             opacity: 0;
-            background: #232f36;
+            background: #1c4e6b;
         }
         #loading {
             text-align: center;
