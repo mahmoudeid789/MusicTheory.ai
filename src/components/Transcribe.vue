@@ -15,9 +15,10 @@
                 </div>
                 <p>Loading Model..</p>
             </div>
-
             <div id="loaded">
                 <div class="introduction">
+                    <input type="file" id="file-input" @click="rotate" title=" ">
+
                     <p>
                         Upload an
                         <span>audio file</span>
@@ -31,12 +32,8 @@
                         class="uploadButton"
                         id="uploadButton"
                         tabindex="0"
-                        @click="rotate"
                     >
                         <v-icon>add</v-icon>
-                        <div class="inputWrapper">
-                            <input type="file" id="file-input">
-                        </div>
                     </v-btn>
                 </div>
             </div>
@@ -137,17 +134,6 @@ export default {
                             opacity: 1,
                             display: "block"
                         });
-                        setTimeout(() => {
-                            // Velocity(
-                            //     document.getElementById("playButton"),
-                            //     { opacity: 1 },
-                            //     { duration: 300 }
-                            // );
-                            Velocity(document.getElementById("shader"), {
-                                opacity: 0.2,
-                                display: "block"
-                            });
-                        }, 200);
                     }, 500);
 
                     //Setup note visualizer
@@ -175,16 +161,10 @@ export default {
                         stop: () => {
                             console.log("done");
                             this.playerState = "done";
-                            // Velocity(
-                            //     document.getElementById("player"),
-                            //     { backgroundColor: "#283a44" },
-                            //     { duration: 250 }
-                            // );
-                            // Velocity(
-                            //     document.getElementById("playButton"),
-                            //     { opacity: 1 },
-                            //     { duration: 300 }
-                            // );
+                            Velocity(document.getElementById("shader"), {
+                                opacity: 0,
+                                display: "block"
+                            });
                         }
                     };
                     this.noteSequence = noteSequence;
@@ -203,7 +183,7 @@ export default {
                     this.playerState = "playing";
                     Velocity(document.getElementById("shader"), {
                         opacity: 0.2,
-                        display: "none"
+                        display: "block"
                     });
                 } else if (this.playerState === "playing") {
                     //Player playing
@@ -211,7 +191,7 @@ export default {
                     this.playerState = "paused";
                     Velocity(document.getElementById("shader"), {
                         opacity: 0,
-                        display: "block"
+                        display: "none"
                     });
                 } else if (this.playerState === "paused") {
                     //Player paused
@@ -224,35 +204,6 @@ export default {
                 }
             }
         },
-        // playNS() {
-        //     //Play music (NS = Note Sequence)
-        //     this.isPlaying = true;
-        //     if (this.isPaused === true) {
-        //         this.player.resume();
-        //     } else {
-        //         this.player.start(this.noteSequence);
-        //     }
-        //     Velocity(
-        //         document.getElementById("playButton"),
-        //         { opacity: 0 },
-        //         { duration: 300 }
-        //     );
-        //     Velocity(
-        //         document.getElementById("shader"),
-        //         { opacity: 0, display: "none" },
-        //     );
-        //     Velocity(
-        //         document.getElementById("player"),
-        //         { backgroundColor: "#2b3f49" },
-        //         { duration: 250 }
-        //     );
-        // },
-        // pauseNS() {
-        //     //Pause music
-        //     this.player.stop();
-        //     this.isPlaying = false;
-        //     this.isPaused = true;
-        // }
         rotate() {
             //Simple animation on upload button click
             document.getElementById("uploadButton").style.transform =
@@ -283,7 +234,7 @@ export default {
         }
     }
     .player {
-        background: #283a44;
+        background: #2e3f47;
         // background: #2b3f49;
 
         width: 100%;
@@ -302,7 +253,7 @@ export default {
             z-index: 2;
             display: none;
             opacity: 0;
-            background: #1c4e6b;
+            background: #407fa3;
         }
         #loading {
             text-align: center;
@@ -314,6 +265,7 @@ export default {
                 opacity: 0.8;
             }
         }
+
         #loaded {
             text-align: center;
             display: none;
@@ -323,6 +275,21 @@ export default {
                 margin: 20px;
             }
             .introduction {
+                input[type="file"] {
+                    margin-left: -450px;
+
+                    z-index: 3;
+                    opacity: 0;
+                    width: 900px;
+                    height: 300px;
+                    margin-top: -60px;
+                    position: absolute;
+                    color: transparent;
+                    font-size: 0;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
                 text-align: center;
                 font-size: 20px;
                 width: 60%;
@@ -341,33 +308,8 @@ export default {
                 .uploadButton {
                     i {
                         font-size: 40px;
-                        margin-top: -35px;
-                        padding-top: 15px;
-                        height: 70px;
                         transform-origin: 50% 50%;
                         transition: 0.5s;
-                    }
-                    .inputWrapper {
-                        width: 72px;
-                        height: 72px;
-                        margin-top: -35px;
-                        margin-left: 0px;
-                        border-radius: 50%;
-                        display: block;
-                        z-index: 2;
-                        input[type="file"] {
-                            margin-top: 0px;
-                            margin-left: -35px;
-                            opacity: 0;
-                            width: 100%;
-                            height: 100%;
-                            position: absolute;
-                            color: transparent;
-                            font-size: 0;
-                            &:hover {
-                                cursor: pointer;
-                            }
-                        }
                     }
                 }
             }
