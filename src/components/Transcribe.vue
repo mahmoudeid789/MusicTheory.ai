@@ -142,7 +142,7 @@ export default {
                         pixelsPerTimeStep: 5,
                         noteSpacing: 1,
                         noteRGB: "234, 234, 236",
-                        activeNoteRGB: "118,75,124"
+                        activeNoteRGB: "184, 54, 201"
                     };
                     this.visualizer = new mm.Visualizer(
                         noteSequence,
