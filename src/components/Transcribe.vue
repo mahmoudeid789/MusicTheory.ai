@@ -18,7 +18,7 @@
             <transition name="fade">
                 <div
                     id="shader"
-                    v-if="playerHovered"
+                    v-if="playerHovered && canvasLoaded"
                     @mouseenter="playerHovered = true"
                     @mouseleave="playerHovered = false"
                 ></div>
@@ -76,7 +76,13 @@
                         large
                         color="#922ca0"
                     >
-                        <v-icon dark>play_arrow</v-icon>
+                        <v-icon dark>
+                            {{ //Nested ternaries are cool
+                            ["unstarted", "paused", "done"].includes(this.playerState)
+                            ? (this.playerState === "done" ? "replay" : "play_arrow")
+                            : "pause"
+                            }}
+                        </v-icon>
                     </v-btn>
                 </transition>
                 <transition name="fade">
@@ -167,12 +173,6 @@ export default {
                             opacity: 1,
                             display: "block"
                         });
-                        setTimeout(() => {
-                            // Velocity(document.getElementById("shader"), {
-                            //     opacity: 0.6,
-                            //     display: "block"
-                            // });
-                        }, 300);
                     }, 500);
 
                     //Setup note visualizer
@@ -327,8 +327,6 @@ export default {
             margin-top: -40px;
             position: absolute;
             z-index: 2;
-            // display: none;
-            // opacity: 0.6;
             background: rgba(47, 53, 58, 0.6);
         }
         #loading {
