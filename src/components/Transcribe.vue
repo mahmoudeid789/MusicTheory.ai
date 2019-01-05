@@ -53,12 +53,13 @@
                 <transition name="fade">
                     <v-btn
                         v-if="playerHovered"
+                        @mouseenter="playerHovered = true"
+                        @mouseleave="playerHovered = false"
                         id="playButton"
                         fab
                         dark
                         large
-                        outline
-                        color="primary"
+                        color="#922ca0"
                     >
                         <v-icon dark>play_arrow</v-icon>
                     </v-btn>
@@ -298,7 +299,7 @@ export default {
             z-index: 2;
             display: none;
             opacity: 0;
-            background: #3e464d;
+            background: #353c42;
         }
         #loading {
             text-align: center;
@@ -403,7 +404,7 @@ export default {
                 top: 100px;
                 right: 47.5%;
                 z-index: 100;
-                background: rgba(227, 66, 248, 0.05) !important;
+                // background: rgba(227, 66, 248, 0.1) !important;
                 transition: 0.3s;
 
                 i {
