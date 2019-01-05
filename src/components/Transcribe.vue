@@ -50,9 +50,19 @@
             </div>
             <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
-                <v-btn v-if="playerHovered" id="playButton" fab dark large outline color="primary">
-                    <v-icon dark>play_arrow</v-icon>
-                </v-btn>
+                <transition name="fade">
+                    <v-btn
+                        v-if="playerHovered"
+                        id="playButton"
+                        fab
+                        dark
+                        large
+                        outline
+                        color="primary"
+                    >
+                        <v-icon dark>play_arrow</v-icon>
+                    </v-btn>
+                </transition>
             </div>
         </div>
         <p>{{playerState}}</p>
@@ -134,6 +144,12 @@ export default {
                             opacity: 1,
                             display: "block"
                         });
+                        setTimeout(() => {
+                            Velocity(document.getElementById("shader"), {
+                                opacity: 0.4,
+                                display: "block"
+                            });
+                        }, 300);
                     }, 500);
 
                     //Setup note visualizer
@@ -162,9 +178,16 @@ export default {
                             console.log("done");
                             this.playerState = "done";
                             Velocity(document.getElementById("shader"), {
-                                opacity: 0,
+                                opacity: 0.4,
                                 display: "block"
                             });
+                            // Velocity(
+                            //     document.getElementById("player"),
+                            //     {
+                            //         backgroundColor: "#2b3f49"
+                            //     },
+                            //     { duration: 300 }
+                            // );
                         }
                     };
                     this.noteSequence = noteSequence;
@@ -181,25 +204,46 @@ export default {
                     this.player.resumeContext();
                     this.player.start(this.noteSequence);
                     this.playerState = "playing";
+                    // Velocity(
+                    //     document.getElementById("player"),
+                    //     {
+                    //         backgroundColor: "#364c58"
+                    //     },
+                    //     { duration: 300 }
+                    // );
                     Velocity(document.getElementById("shader"), {
-                        opacity: 0.2,
-                        display: "block"
+                        opacity: 0,
+                        display: "none"
                     });
                 } else if (this.playerState === "playing") {
                     //Player playing
                     this.player.pause();
                     this.playerState = "paused";
+                    // Velocity(
+                    //     document.getElementById("player"),
+                    //     {
+                    //         backgroundColor: "#2b3f49"
+                    //     },
+                    //     { duration: 300 }
+                    // );
                     Velocity(document.getElementById("shader"), {
-                        opacity: 0,
-                        display: "none"
+                        opacity: 0.4,
+                        display: "block"
                     });
                 } else if (this.playerState === "paused") {
                     //Player paused
                     this.player.resume();
                     this.playerState = "playing";
+                    // Velocity(
+                    //     document.getElementById("player"),
+                    //     {
+                    //         backgroundColor: "#364c58"
+                    //     },
+                    //     { duration: 300 }
+                    // );
                     Velocity(document.getElementById("shader"), {
-                        opacity: 0.2,
-                        display: "block"
+                        opacity: 0,
+                        display: "none"
                     });
                 }
             }
@@ -234,8 +278,8 @@ export default {
         }
     }
     .player {
-        background: #2e3f47;
-        // background: #2b3f49;
+        background: #364c58;
+        background: #2b3f49;
 
         width: 100%;
         height: 300px;
@@ -245,6 +289,7 @@ export default {
         &:hover {
             cursor: pointer;
         }
+
         #shader {
             width: 100%;
             height: 100%;
@@ -253,7 +298,7 @@ export default {
             z-index: 2;
             display: none;
             opacity: 0;
-            background: #407fa3;
+            background: #3e464d;
         }
         #loading {
             text-align: center;
@@ -346,14 +391,20 @@ export default {
                 height: 100% !important;
                 color: #764b7c;
             }
+            .fade-enter-active,
+            .fade-leave-active {
+                transition: opacity 0.5s;
+            }
+            .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+                opacity: 0;
+            }
             #playButton {
                 position: absolute;
                 top: 100px;
                 right: 47.5%;
-                opacity: 0;
-                z-index: 3;
+                z-index: 100;
                 background: rgba(227, 66, 248, 0.05) !important;
-                transition: box-shadow 0.3s;
+                transition: 0.3s;
 
                 i {
                     font-size: 40px;
