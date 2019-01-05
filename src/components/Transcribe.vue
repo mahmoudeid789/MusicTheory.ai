@@ -64,6 +64,13 @@
                         <v-icon dark>play_arrow</v-icon>
                     </v-btn>
                 </transition>
+                <transition name="fade">
+                    <p
+                        v-if="playerHovered"
+                        @mouseenter="playerHovered = true"
+                        @mouseleave="playerHovered = false"
+                    >{{fileName}}</p>
+                </transition>
             </div>
         </div>
         <p>{{playerState}}</p>
@@ -147,7 +154,7 @@ export default {
                         });
                         setTimeout(() => {
                             Velocity(document.getElementById("shader"), {
-                                opacity: 0.4,
+                                opacity: 0.6,
                                 display: "block"
                             });
                         }, 300);
@@ -179,7 +186,7 @@ export default {
                             console.log("done");
                             this.playerState = "done";
                             Velocity(document.getElementById("shader"), {
-                                opacity: 0.4,
+                                opacity: 0.6,
                                 display: "block"
                             });
                             // Velocity(
@@ -228,7 +235,7 @@ export default {
                     //     { duration: 300 }
                     // );
                     Velocity(document.getElementById("shader"), {
-                        opacity: 0.4,
+                        opacity: 0.6,
                         display: "block"
                     });
                 } else if (this.playerState === "paused") {
@@ -299,7 +306,7 @@ export default {
             z-index: 2;
             display: none;
             opacity: 0;
-            background: #353c42;
+            background: #2f353a;
         }
         #loading {
             text-align: center;
@@ -405,11 +412,20 @@ export default {
                 right: 47.5%;
                 z-index: 100;
                 // background: rgba(227, 66, 248, 0.1) !important;
-                transition: 0.3s;
 
                 i {
                     font-size: 40px;
                 }
+            }
+            p {
+                position: absolute;
+                bottom: 50px;
+                width: 100%;
+                margin-left: -50px;
+                text-align: center;
+                z-index: 100;
+                font-size: 17px;
+                font-weight: 200;
             }
         }
     }
