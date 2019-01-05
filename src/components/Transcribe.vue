@@ -7,8 +7,23 @@
                 </span>MusicTheory.ai
             </p>
         </div>
-        <div class="player" id="player" v-ripple @click="togglePlayer">
-            <div id="shader" @mouseenter="playerHovered = true" @mouseleave="playerHovered = false"></div>
+        <div
+            class="player"
+            id="player"
+            v-ripple
+            @click="togglePlayer"
+            @mouseenter="playerHovered = true"
+            @mouseleave="playerHovered = false"
+        >
+            <transition name="fade">
+                <div
+                    id="shader"
+                    v-if="playerHovered"
+                    @mouseenter="playerHovered = true"
+                    @mouseleave="playerHovered = false"
+                ></div>
+            </transition>
+
             <div id="loading">
                 <div class="musicLoader">
                     <Loader/>
@@ -153,10 +168,10 @@ export default {
                             display: "block"
                         });
                         setTimeout(() => {
-                            Velocity(document.getElementById("shader"), {
-                                opacity: 0.6,
-                                display: "block"
-                            });
+                            // Velocity(document.getElementById("shader"), {
+                            //     opacity: 0.6,
+                            //     display: "block"
+                            // });
                         }, 300);
                     }, 500);
 
@@ -185,10 +200,10 @@ export default {
                         stop: () => {
                             console.log("done");
                             this.playerState = "done";
-                            Velocity(document.getElementById("shader"), {
-                                opacity: 0.6,
-                                display: "block"
-                            });
+                            // Velocity(document.getElementById("shader"), {
+                            //     opacity: 0.6,
+                            //     display: "block"
+                            // });
                             // Velocity(
                             //     document.getElementById("player"),
                             //     {
@@ -219,10 +234,10 @@ export default {
                     //     },
                     //     { duration: 300 }
                     // );
-                    Velocity(document.getElementById("shader"), {
-                        opacity: 0,
-                        display: "none"
-                    });
+                    // Velocity(document.getElementById("shader"), {
+                    //     opacity: 0,
+                    //     display: "none"
+                    // });
                 } else if (this.playerState === "playing") {
                     //Player playing
                     this.player.pause();
@@ -234,10 +249,10 @@ export default {
                     //     },
                     //     { duration: 300 }
                     // );
-                    Velocity(document.getElementById("shader"), {
-                        opacity: 0.6,
-                        display: "block"
-                    });
+                    // Velocity(document.getElementById("shader"), {
+                    //     opacity: 0.6,
+                    //     display: "block"
+                    // });
                 } else if (this.playerState === "paused") {
                     //Player paused
                     this.player.resume();
@@ -249,10 +264,10 @@ export default {
                     //     },
                     //     { duration: 300 }
                     // );
-                    Velocity(document.getElementById("shader"), {
-                        opacity: 0,
-                        display: "none"
-                    });
+                    // Velocity(document.getElementById("shader"), {
+                    //     opacity: 0,
+                    //     display: "none"
+                    // });
                 }
             }
         },
@@ -267,6 +282,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
 .container {
     background: #22313a;
     margin-top: 50px;
@@ -304,9 +327,9 @@ export default {
             margin-top: -40px;
             position: absolute;
             z-index: 2;
-            display: none;
-            opacity: 0;
-            background: #2f353a;
+            // display: none;
+            // opacity: 0.6;
+            background: rgba(47, 53, 58, 0.6);
         }
         #loading {
             text-align: center;
@@ -399,13 +422,7 @@ export default {
                 height: 100% !important;
                 color: #764b7c;
             }
-            .fade-enter-active,
-            .fade-leave-active {
-                transition: opacity 0.5s;
-            }
-            .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-                opacity: 0;
-            }
+
             #playButton {
                 position: absolute;
                 top: 100px;
