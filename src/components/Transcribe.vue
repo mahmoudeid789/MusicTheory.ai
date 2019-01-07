@@ -95,6 +95,7 @@
             </div>
         </div>
         <p>{{playerState}}</p>
+        <p>{{audioDuration}}</p>
     </div>
 </template>
 
@@ -120,6 +121,7 @@ export default {
             canvasLoaded: false,
             playerHovered: false,
             playerState: "unstarted",
+            audioDuration: "",
             rotated: 90
         };
     },
@@ -175,11 +177,14 @@ export default {
                         });
                     }, 500);
 
+                    //Get properties
+                    this.audioDuration = noteSequence.timeSignatures;
+
                     //Setup note visualizer
                     const config = {
-                        noteHeight: 8,
+                        noteHeight: 10,
                         pixelsPerTimeStep: 5,
-                        noteSpacing: 1,
+                        noteSpacing: 2,
                         noteRGB: "234, 234, 236",
                         activeNoteRGB: "184, 54, 201"
                     };
@@ -200,17 +205,6 @@ export default {
                         stop: () => {
                             console.log("done");
                             this.playerState = "done";
-                            // Velocity(document.getElementById("shader"), {
-                            //     opacity: 0.6,
-                            //     display: "block"
-                            // });
-                            // Velocity(
-                            //     document.getElementById("player"),
-                            //     {
-                            //         backgroundColor: "#2b3f49"
-                            //     },
-                            //     { duration: 300 }
-                            // );
                         }
                     };
                     this.noteSequence = noteSequence;
@@ -227,47 +221,14 @@ export default {
                     this.player.resumeContext();
                     this.player.start(this.noteSequence);
                     this.playerState = "playing";
-                    // Velocity(
-                    //     document.getElementById("player"),
-                    //     {
-                    //         backgroundColor: "#364c58"
-                    //     },
-                    //     { duration: 300 }
-                    // );
-                    // Velocity(document.getElementById("shader"), {
-                    //     opacity: 0,
-                    //     display: "none"
-                    // });
                 } else if (this.playerState === "playing") {
                     //Player playing
                     this.player.pause();
                     this.playerState = "paused";
-                    // Velocity(
-                    //     document.getElementById("player"),
-                    //     {
-                    //         backgroundColor: "#2b3f49"
-                    //     },
-                    //     { duration: 300 }
-                    // );
-                    // Velocity(document.getElementById("shader"), {
-                    //     opacity: 0.6,
-                    //     display: "block"
-                    // });
                 } else if (this.playerState === "paused") {
                     //Player paused
                     this.player.resume();
                     this.playerState = "playing";
-                    // Velocity(
-                    //     document.getElementById("player"),
-                    //     {
-                    //         backgroundColor: "#364c58"
-                    //     },
-                    //     { duration: 300 }
-                    // );
-                    // Velocity(document.getElementById("shader"), {
-                    //     opacity: 0,
-                    //     display: "none"
-                    // });
                 }
             }
         },
@@ -327,7 +288,7 @@ export default {
             margin-top: -40px;
             position: absolute;
             z-index: 2;
-            background: rgba(47, 53, 58, 0.6);
+            background: rgba(43, 47, 51, 0.7);
         }
         #loading {
             text-align: center;
