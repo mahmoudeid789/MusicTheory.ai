@@ -1,14 +1,14 @@
 <template>
-    <div class="container">
+    <div class="container secondaryBackground">
         <div class="header">
             <p>
                 <span>
-                    <v-icon color="purple">queue_music</v-icon>
+                    <v-icon color="primary">queue_music</v-icon>
                 </span>MusicTheory.ai
             </p>
         </div>
         <div
-            class="player"
+            class="player background"
             id="player"
             v-ripple
             @click="togglePlayer"
@@ -36,7 +36,7 @@
 
                     <p>
                         Upload an
-                        <span>audio file</span>
+                        <span class="secondary--text">audio file</span>
                     </p>
 
                     <v-btn
@@ -56,7 +56,7 @@
             <div class="visualizerLoader" id="visualizerLoader">
                 <p>
                     Transcribing
-                    <span class="fileName">{{fileName}}...</span>
+                    <span class="secondary--text">{{fileName}}...</span>
                     <br>
                     <span
                         class="cpuWarning"
@@ -74,7 +74,7 @@
                         fab
                         dark
                         large
-                        color="#922ca0"
+                        color="primary"
                     >
                         <v-icon dark>
                             {{ //Nested ternaries are cool
@@ -252,7 +252,6 @@ export default {
 }
 
 .container {
-    background: #22313a;
     margin-top: 50px;
     width: 1000px;
     border-radius: 15px;
@@ -270,9 +269,9 @@ export default {
         }
     }
     .player {
-        background: #364c58;
-        background: #2b3f49;
-        background: #37474f;
+        // background: #364c58;
+        // background: #2b3f49;
+        // background: #37474f;
 
         width: 100%;
         height: 300px;
@@ -337,9 +336,6 @@ export default {
                     line-height: 5px;
                     padding-top: 20px;
                     font-weight: 300;
-                    span {
-                        color: #e946ff;
-                    }
                 }
                 .uploadButton {
                     i {
@@ -359,9 +355,6 @@ export default {
                 margin-top: 65px;
                 font-weight: 300;
                 line-height: 35px;
-                .fileName {
-                    color: #b836c9;
-                }
                 .cpuWarning {
                     font-size: 17px;
                     opacity: 0.7;
