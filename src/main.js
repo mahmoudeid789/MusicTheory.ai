@@ -6,6 +6,8 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
 Vue.config.productionTip = false;
 
+//#3ff9dc
+//#952aa3
 Vue.use(Vuetify, {
 	theme: {
 		primary: '#952aa3',

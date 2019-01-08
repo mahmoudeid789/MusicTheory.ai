@@ -272,6 +272,7 @@ export default {
     .player {
         background: #364c58;
         background: #2b3f49;
+        background: #37474f;
 
         width: 100%;
         height: 300px;
