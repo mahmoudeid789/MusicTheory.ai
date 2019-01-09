@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@magenta/music": "^1.4.1",
+    "gsap": "^2.0.2",
     "ml5": "^0.1.3",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",

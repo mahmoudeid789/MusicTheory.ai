@@ -1,6 +1,8 @@
 <template>
     <div class="container secondaryBackground">
         <div class="header">
+            <RangeInput/>
+
             <p>
                 <span>
                     <v-icon color="primary">queue_music</v-icon>
@@ -101,13 +103,15 @@
 
 <script>
 import Loader from "./Loader";
+import RangeInput from "./RangeInput";
 import { setTimeout } from "timers";
 import * as mm from "@magenta/music";
 
 export default {
     name: "Transcribe",
     components: {
-        Loader
+        Loader,
+        RangeInput
     },
     data() {
         return {
@@ -243,6 +247,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+rect {
+    border-radius: 15px;
+}
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.5s;
