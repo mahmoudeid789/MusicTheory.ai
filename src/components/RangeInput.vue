@@ -6,12 +6,12 @@
         preserveAspectRatio="xMidYMid meet"
     >
         <defs>
-            <rect id="panel" x="158" y="231" width="500" height="138"></rect>
+            <rect id="panel" x="158" y="231" width="500" height="138" rx="15" ry="15"></rect>
             <clipPath id="mainMask">
                 <use xlink:href="#panel" fill="red"></use>
             </clipPath>
 
-            <linearGradient
+            <!-- <linearGradient
                 id="draggerGrad"
                 x1="120"
                 y1="344"
@@ -21,8 +21,8 @@
             >
                 <stop offset="0" stop-color="#0071bc" stop-opacity="0"></stop>
                 <stop offset="1" stop-opacity="0.15"></stop>
-            </linearGradient>
-            <linearGradient
+            </linearGradient>-->
+            <!-- <linearGradient
                 id="panelGrad"
                 gradientUnits="userSpaceOnUse"
                 x1="158"
@@ -32,7 +32,7 @@
             >
                 <stop offset="0" stop-color="#0071bc" stop-opacity="0"></stop>
                 <stop offset="1" stop-color="#f2f2f2" stop-opacity="0.5"></stop>
-            </linearGradient>
+            </linearGradient>-->
             <clipPath id="panelMask">
                 <use class="panelMask" xlink:href="#panel" x="-500" fill="red"></use>
             </clipPath>
@@ -40,7 +40,7 @@
         <use class="bgPanel" xlink:href="#panel" fill="#0071bc"></use>
         <use class="bgPanelCover" xlink:href="#panel" fill="#000" opacity="0.1"></use>
 
-        <rect class="track" x="158" y="334" width="500" height="35" fill="#0071bc"></rect>
+        <rect class="track" x="158" y="334" width="500" height="35" fill="#0071bc" rx="15" ry="15"></rect>
         <g class="iconGroup" transform="translate(20, 0)">
             <g class="iconRing">
                 <circle cx="208.5" cy="281.5" r="35" fill="#fffcf9" opacity="0.5"></circle>
@@ -67,16 +67,23 @@
                 height="35"
                 fill="url(#draggerGrad)"
             ></rect>
-            <text x="290" y="294" class="sliderProp sliderLabel">Tint</text>
-            <rect class="dragger" x="158" y="334" width="30" height="35" fill="#FFFCF9"></rect>
+            <text x="290" y="294" class="sliderProp sliderLabel">Randomness</text>
+            <rect
+                class="dragger"
+                x="158"
+                y="334"
+                width="30"
+                height="35"
+                fill="#FFFCF9"
+                rx="15"
+                ry="15"
+            ></rect>
             <text x="45%" y="400" class="valueProp sliderLabel">0%</text>
         </g>
     </svg>
 </template>
 
 <script>
-import { TweenMax } from "gsap/TweenMax";
-
 export default {
     name: "RangeInput",
     mounted: function() {
@@ -104,9 +111,8 @@ export default {
             iconGroup = select(".iconGroup"),
             bgPanel = select(".bgPanel"),
             valueProp = select(".valueProp"),
-            draggerPos = TweenMax.set(".dragger", {
-                x: "+=0"
-            }).target[0]._gsTransform;
+            draggerPos = TweenMax.set(".dragger", { x: "+=0" }).target[0]
+                ._gsTransform;
 
         TweenMax.set("svg", {
             visibility: "visible"
@@ -282,19 +288,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.sliderLabel {
+    font-family: "Poppins", sans-serif !important;
+    font-size: 25px !important;
+}
 svg {
-    width: 800px;
-    height: 600px;
-    // visibility: hidden;
-    z-index: 500;
-    position: absolute;
+    width: 600px;
+    height: 450px;
 }
 
 .sliderLabel {
     text-anchor: start;
     fill: #fffcf9;
     font-family: "Questrial", serif;
-    font-size: 27px;
+    font-size: 30px;
     letter-spacing: 0.3px;
     user-select: none;
     -moz-user-select: none;
@@ -303,7 +310,7 @@ svg {
 .valueProp {
     text-anchor: start;
     fill: #fffcf9;
-    font-size: 44px;
+    font-size: 40px !important;
 }
 
 .dragger {

@@ -1,8 +1,6 @@
 <template>
     <div class="container secondaryBackground">
         <div class="header">
-            <RangeInput/>
-
             <p>
                 <span>
                     <v-icon color="primary">queue_music</v-icon>
@@ -96,8 +94,10 @@
                 </transition>
             </div>
         </div>
+
         <p>{{playerState}}</p>
         <p>{{audioDuration}}</p>
+        <RangeInput/>
     </div>
 </template>
 
