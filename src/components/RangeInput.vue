@@ -43,7 +43,7 @@
         <rect class="track" x="158" y="334" width="500" height="35" fill="#0071bc" rx="15" ry="15"></rect>
         <g class="iconGroup" transform="translate(20, 0)">
             <g class="iconRing">
-                <circle cx="208.5" cy="281.5" r="35" fill="#fffcf9" opacity="0.5"></circle>
+                <circle cx="208.5" cy="281.5" r="35" fill="#fffcf9" opacity="0.2"></circle>
                 <circle class="iconFill" cx="208.5" cy="281.5" r="29.75" fill="#0071bc"></circle>
             </g>
             <path
@@ -143,7 +143,6 @@ export default {
                 0.4,
                 {
                     y: 18,
-                    //scale:1.2,
                     transformOrigin: "50% 50%",
                     ease: Elastic.easeOut.config(0.3, 0.9)
                 },
@@ -153,7 +152,7 @@ export default {
                 ".icon",
                 1,
                 {
-                    scale: 1.42,
+                    scale: 1.82,
                     transformOrigin: "50% 50%",
                     ease: Elastic.easeOut.config(0.8, 0.29)
                 },
@@ -288,23 +287,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sliderLabel {
-    font-family: "Poppins", sans-serif !important;
-    font-size: 25px !important;
-}
 svg {
-    width: 600px;
+    width: 500px;
     height: 450px;
 }
 
 .sliderLabel {
+    font-family: "Poppins", sans-serif !important;
     text-anchor: start;
     fill: #fffcf9;
-    font-family: "Questrial", serif;
-    font-size: 30px;
     letter-spacing: 0.3px;
     user-select: none;
     -moz-user-select: none;
+    font-size: 30px !important;
+    font-weight: 300;
 }
 
 .valueProp {

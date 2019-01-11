@@ -13,8 +13,8 @@ Vue.use(Vuetify, {
 		primary: '#952aa3',
 		secondary: '#e946ff',
 		accent: '#303747',
-		background: '#2b3f49',
-		secondaryBackground: '#22313a',
+		background: '#304049',
+		secondaryBackground: '#27343b',
 		error: '#ff643d',
 	},
 });

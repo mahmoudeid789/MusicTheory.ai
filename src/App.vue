@@ -34,11 +34,9 @@ body,
 .application {
     height: 100%;
     font-family: "Poppins", sans-serif !important;
+    background: #192329 !important;
 }
 #app {
-    background: #192329;
     height: 100%;
-    position: relative;
-    overflow: hidden;
 }
 </style>

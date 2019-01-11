@@ -247,15 +247,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-rect {
-    border-radius: 15px;
-}
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
+    color: rgb(54, 67, 73);
 }
 
 .container {
@@ -295,7 +293,7 @@ rect {
             margin-top: -40px;
             position: absolute;
             z-index: 2;
-            background: rgba(43, 47, 51, 0.7);
+            background: rgba(45, 49, 53, 0.7);
         }
         #loading {
             text-align: center;
@@ -304,7 +302,6 @@ rect {
                 font-size: 16px;
                 font-weight: 300;
                 margin-top: -30px;
-                opacity: 0.8;
             }
         }
 
@@ -339,7 +336,6 @@ rect {
                 font-weight: 300;
                 p {
                     font-size: 16px;
-                    opacity: 0.85;
                     line-height: 5px;
                     padding-top: 20px;
                     font-weight: 300;
@@ -364,7 +360,7 @@ rect {
                 line-height: 35px;
                 .cpuWarning {
                     font-size: 17px;
-                    opacity: 0.7;
+                    opacity: 0.8;
                     font-weight: 200;
                 }
             }
