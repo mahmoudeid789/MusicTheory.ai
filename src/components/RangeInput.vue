@@ -19,7 +19,7 @@
                 y2="344"
                 gradientUnits="userSpaceOnUse"
             >
-                <stop offset="0" stop-color="#0071bc" stop-opacity="0"></stop>
+                <stop offset="0" stop-color="#5c6d77" stop-opacity="0"></stop>
                 <stop offset="1" stop-opacity="0.15"></stop>
             </linearGradient>-->
             <!-- <linearGradient
@@ -30,21 +30,21 @@
                 x2="658"
                 y2="300"
             >
-                <stop offset="0" stop-color="#0071bc" stop-opacity="0"></stop>
+                <stop offset="0" stop-color="#5c6d77" stop-opacity="0"></stop>
                 <stop offset="1" stop-color="#f2f2f2" stop-opacity="0.5"></stop>
             </linearGradient>-->
             <clipPath id="panelMask">
                 <use class="panelMask" xlink:href="#panel" x="-500" fill="red"></use>
             </clipPath>
         </defs>
-        <use class="bgPanel" xlink:href="#panel" fill="#0071bc"></use>
+        <use class="bgPanel" xlink:href="#panel" fill="#5c6d77"></use>
         <use class="bgPanelCover" xlink:href="#panel" fill="#000" opacity="0.1"></use>
 
-        <rect class="track" x="158" y="334" width="500" height="35" fill="#0071bc" rx="15" ry="15"></rect>
+        <rect class="track" x="158" y="334" width="500" height="35" fill="#5c6d77" rx="15" ry="15"></rect>
         <g class="iconGroup" transform="translate(20, 0)">
             <g class="iconRing">
                 <circle cx="208.5" cy="281.5" r="35" fill="#fffcf9" opacity="0.2"></circle>
-                <circle class="iconFill" cx="208.5" cy="281.5" r="29.75" fill="#0071bc"></circle>
+                <circle class="iconFill" cx="208.5" cy="281.5" r="29.75" fill="#5c6d77"></circle>
             </g>
             <path
                 class="icon"
@@ -234,9 +234,9 @@ export default {
                 },
                 0
             );
-
+        //Gradient end color
         tintTl.to([bgPanel, track, iconFill], 1, {
-            fill: "#DF2548",
+            fill: "#9e4b94",
             ease: Linear.easeNone
         });
 
@@ -290,6 +290,7 @@ export default {
 svg {
     width: 500px;
     height: 450px;
+    position: absolute;
 }
 
 .sliderLabel {

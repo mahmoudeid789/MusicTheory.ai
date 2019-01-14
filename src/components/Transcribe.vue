@@ -94,10 +94,15 @@
                 </transition>
             </div>
         </div>
-
-        <p>{{playerState}}</p>
-        <p>{{audioDuration}}</p>
-        <RangeInput/>
+        <div class="control">
+            <RangeInput/>
+            <v-combobox
+                v-model="linesToCreate"
+                :items="[1, 5, 10, 15]"
+                label="lines"
+                class="linesInput"
+            ></v-combobox>
+        </div>
     </div>
 </template>
 
@@ -126,7 +131,8 @@ export default {
             playerHovered: false,
             playerState: "unstarted",
             audioDuration: "",
-            rotated: 90
+            rotated: 90,
+            linesToCreate: 10
         };
     },
     mounted: function() {
@@ -253,7 +259,6 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
-    color: rgb(54, 67, 73);
 }
 
 .container {
@@ -400,6 +405,12 @@ export default {
                 font-size: 17px;
                 font-weight: 200;
             }
+        }
+    }
+    .control {
+        .linesInput {
+            width: 50px;
+            font-size: 20px;
         }
     }
 }
