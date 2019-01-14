@@ -99,8 +99,8 @@
             <v-combobox
                 v-model="linesToCreate"
                 :items="[1, 5, 10, 15]"
-                label="lines"
                 class="linesInput"
+                background-color="grey"
             ></v-combobox>
         </div>
     </div>
@@ -252,7 +252,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.5s;
@@ -411,6 +411,10 @@ export default {
         .linesInput {
             width: 50px;
             font-size: 20px;
+            .v-input__slot {
+                border-radius: 10px !important;
+                height: 50px;
+            }
         }
     }
 }
