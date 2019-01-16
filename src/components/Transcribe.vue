@@ -411,10 +411,6 @@ export default {
         .linesInput {
             width: 50px;
             font-size: 20px;
-            .v-input__slot {
-                border-radius: 10px !important;
-                height: 50px;
-            }
         }
     }
 }
