@@ -95,13 +95,21 @@
             </div>
         </div>
         <div class="control">
-            <RangeInput/>
-            <v-combobox
-                v-model="linesToCreate"
-                :items="[1, 5, 10, 15]"
-                class="linesInput"
-                background-color="grey"
-            ></v-combobox>
+            <v-container>
+                <v-layout>
+                    <v-flex sm6>
+                        <v-text-field
+                            class="temperature"
+                            label="Temperature"
+                            background-color="#2f3d46"
+                            box
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex sm6>
+                        <v-text-field class="lines" label="Lines" background-color="#2f3d46" box></v-text-field>
+                    </v-flex>
+                </v-layout>
+            </v-container>
         </div>
     </div>
 </template>
@@ -252,7 +260,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.5s;
@@ -408,9 +416,17 @@ export default {
         }
     }
     .control {
-        .linesInput {
-            width: 50px;
-            font-size: 20px;
+        .flex {
+            align-items: center;
+            margin: auto;
+        }
+        .temperature {
+            width: 140.5px;
+            margin: auto;
+        }
+        .lines {
+            width: 67.7px;
+            margin: auto;
         }
     }
 }

@@ -6,7 +6,7 @@
         preserveAspectRatio="xMidYMid meet"
     >
         <defs>
-            <rect id="panel" x="158" y="231" width="500" height="138" rx="15" ry="15"></rect>
+            <rect id="panel" x="158" y="231" width="500" height="138" rx="20" ry="20"></rect>
             <clipPath id="mainMask">
                 <use xlink:href="#panel" fill="red"></use>
             </clipPath>
@@ -40,10 +40,10 @@
         <use class="bgPanel" xlink:href="#panel" fill="#5c6d77"></use>
         <use class="bgPanelCover" xlink:href="#panel" fill="#000" opacity="0.1"></use>
 
-        <rect class="track" x="158" y="334" width="500" height="35" fill="#5c6d77" rx="15" ry="15"></rect>
+        <rect class="track" x="158" y="334" width="500" height="35" fill="#5c6d77" rx="20" ry="20"></rect>
         <g class="iconGroup" transform="translate(20, 0)">
             <g class="iconRing">
-                <circle cx="208.5" cy="281.5" r="35" fill="#fffcf9" opacity="0.2"></circle>
+                <circle cx="208.5" cy="281.5" r="30" fill="#fffcf9" opacity="0.2"></circle>
                 <circle class="iconFill" cx="208.5" cy="281.5" r="29.75" fill="#5c6d77"></circle>
             </g>
             <path
@@ -72,11 +72,11 @@
                 class="dragger"
                 x="158"
                 y="334"
-                width="30"
+                width="35"
                 height="35"
                 fill="#FFFCF9"
-                rx="15"
-                ry="15"
+                rx="20"
+                ry="20"
             ></rect>
             <text x="45%" y="400" class="valueProp sliderLabel">0%</text>
         </g>
@@ -299,6 +299,7 @@ svg {
     fill: #fffcf9;
     letter-spacing: 0.3px;
     user-select: none;
+    color: #35424e;
     -moz-user-select: none;
     font-size: 30px !important;
     font-weight: 300;
