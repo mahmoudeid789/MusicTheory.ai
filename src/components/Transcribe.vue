@@ -65,6 +65,7 @@
             </div>
             <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
+                <canvas id="gcanvas"></canvas>
                 <transition name="fade">
                     <v-btn
                         v-if="playerHovered"
@@ -116,7 +117,7 @@
                         ></v-text-field>
                     </v-flex>
                     <v-flex sm3>
-                        <v-btn outline color="primary">Generate Music!</v-btn>
+                        <v-btn outline color="primary" @click="generateMusic">Generate Music!</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -153,8 +154,8 @@ export default {
             audioDuration: "",
             rotated: 90,
             //Music generation options
-            steps: 20,
-            temperature: 10
+            steps: 50,
+            temperature: 1
         };
     },
     mounted: function() {
@@ -271,16 +272,34 @@ export default {
                 }
             }
         },
-        async createMusic() {
-            await this.transcriptionModel.initialize().then(() => {
-                this.transcriptionModel
+        async generateMusic() {
+            await this.generationModel.initialize().then(() => {
+                this.generationModel
                     .continueSequence(
                         this.noteSequence,
                         this.steps,
                         this.temperature
                     )
                     .then(newSequence => {
-                        this.newSequence = newSequence;
+                        this.noteSequence = newSequence;
+                        document.getElementById("canvas").style.display =
+                            "none";
+                        document.getElementById("gcanvas").style.display =
+                            "block";
+                        console.log("done");
+                        const config = {
+                            noteHeight: 10,
+                            pixelsPerTimeStep: 5,
+                            noteSpacing: 2,
+                            noteRGB: "234, 234, 236",
+                            activeNoteRGB: "184, 54, 20"
+                        };
+                        this.visualizer = new mm.Visualizer(
+                            this.noteSequence,
+                            document.getElementById("gcanvas"),
+                            config
+                        );
+                        this.player.loadSamples(this.noteSequence);
                     });
             });
         },
@@ -418,12 +437,16 @@ export default {
             margin: auto;
             display: none;
             opacity: 0;
-            #canvas {
+            #canvas,
+            #gcanvas {
                 display: block;
                 width: 100% !important;
-                image-rendering: pixelated;
+                // image-rendering: pixelated;
                 height: 100% !important;
                 color: #764b7c;
+            }
+            #gcanvas {
+                display: none;
             }
 
             #playButton {
