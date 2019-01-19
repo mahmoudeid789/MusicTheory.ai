@@ -116,7 +116,7 @@
                         ></v-text-field>
                     </v-flex>
                     <v-flex sm3>
-                        <v-btn outline color="primary">Create Music</v-btn>
+                        <v-btn outline color="primary">Generate Music!</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -139,7 +139,8 @@ export default {
     data() {
         return {
             modelReady: false,
-            model: null,
+            transcriptionModel: null,
+            generationModel: null,
             fileName: "",
             loader: null,
             noteSequence: null, //Transcribed music turned into magenta.js NS
@@ -153,14 +154,17 @@ export default {
             rotated: 90,
             //Music generation options
             steps: 20,
-            temperature: 50
+            temperature: 10
         };
     },
     mounted: function() {
-        this.model = new mm.OnsetsAndFrames(
+        this.transcriptionModel = new mm.OnsetsAndFrames(
             "https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni"
         );
-        this.model.initialize().then(() => {
+        this.generationModel = new mm.MusicRNN(
+            "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn"
+        );
+        this.transcriptionModel.initialize().then(() => {
             this.modelReady = true;
             this.initUI();
         });
@@ -193,7 +197,7 @@ export default {
             document.getElementById("loaded").style.opacity = "0";
             document.getElementById("visualizerLoader").style.display = "block";
             document.getElementById("visualizerLoader").style.opacity = "1";
-            await this.model
+            await this.transcriptionModel
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
                     this.noteSequence = mm.sequences.quantizeNoteSequence(
@@ -245,7 +249,7 @@ export default {
                     };
                 });
         },
-        async togglePlayer() {
+        togglePlayer() {
             //Handles clicks on the player depending on playerState
             if (this.canvasLoaded === true) {
                 if (
@@ -267,6 +271,7 @@ export default {
                 }
             }
         },
+        createMusic() {},
         rotate() {
             //Simple animation on upload button click
             document.getElementById("uploadButton").style.transform =
