@@ -38,7 +38,7 @@
                         Upload an
                         <span class="secondary--text">audio file</span>
                     </p>
-
+                    <!--TODO: add note that audio will be transcribed to 8 quantized time steps per quarter-->
                     <v-btn
                         outline
                         large
@@ -56,7 +56,7 @@
             <div class="visualizerLoader" id="visualizerLoader">
                 <p>
                     Transcribing
-                    <span class="secondary--text">{{fileName}}...</span>
+                    <span class="secondary--text">{{fileName}}</span>
                     <br>
                     <span
                         class="cpuWarning"
@@ -97,16 +97,26 @@
         <div class="control">
             <v-container>
                 <v-layout>
-                    <v-flex sm6>
+                    <v-flex sm4>
                         <v-text-field
                             class="temperature"
+                            v-model="temperature"
                             label="Temperature"
                             background-color="#2f3d46"
                             box
                         ></v-text-field>
                     </v-flex>
-                    <v-flex sm6>
-                        <v-text-field class="lines" label="Lines" background-color="#2f3d46" box></v-text-field>
+                    <v-flex sm3>
+                        <v-text-field
+                            class="steps"
+                            v-model="steps"
+                            label="Steps"
+                            background-color="#2f3d46"
+                            box
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex sm3>
+                        <v-btn outline color="primary">Create Music</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -133,6 +143,7 @@ export default {
             fileName: "",
             loader: null,
             noteSequence: null, //Transcribed music turned into magenta.js NS
+            newNoteSequence: null,
             visualizer: null, //Draws noteSequence
             player: null, //Plays noteSequence
             canvasLoaded: false,
@@ -140,7 +151,9 @@ export default {
             playerState: "unstarted",
             audioDuration: "",
             rotated: 90,
-            linesToCreate: 10
+            //Music generation options
+            steps: 20,
+            temperature: 50
         };
     },
     mounted: function() {
@@ -183,6 +196,11 @@ export default {
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
+                    this.noteSequence = mm.sequences.quantizeNoteSequence(
+                        noteSequence,
+                        8
+                    );
+
                     //Transition into canvas
                     Velocity(document.getElementById("visualizerLoader"), {
                         opacity: 0,
@@ -196,7 +214,7 @@ export default {
                     }, 500);
 
                     //Get properties
-                    this.audioDuration = noteSequence.timeSignatures;
+                    this.audioDuration = this.noteSequence.timeSignatures;
 
                     //Setup note visualizer
                     const config = {
@@ -207,7 +225,7 @@ export default {
                         activeNoteRGB: "184, 54, 201"
                     };
                     this.visualizer = new mm.Visualizer(
-                        noteSequence,
+                        this.noteSequence,
                         document.getElementById("canvas"),
                         config
                     );
@@ -217,7 +235,7 @@ export default {
                     this.player = new mm.SoundFontPlayer(
                         "https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus"
                     );
-                    this.player.loadSamples(noteSequence);
+                    this.player.loadSamples(this.noteSequence);
                     this.player.callbackObject = {
                         run: note => this.visualizer.redraw(note),
                         stop: () => {
@@ -225,7 +243,6 @@ export default {
                             this.playerState = "done";
                         }
                     };
-                    this.noteSequence = noteSequence;
                 });
         },
         async togglePlayer() {
@@ -421,12 +438,18 @@ export default {
             margin: auto;
         }
         .temperature {
-            width: 140.5px;
+            width: 300px;
             margin: auto;
         }
-        .lines {
-            width: 67.7px;
+        .steps {
+            width: 200px;
             margin: auto;
+        }
+        .v-btn {
+            width: 200px;
+            margin: auto;
+            height: 60px;
+            margin-top: -25px;
         }
     }
 }
