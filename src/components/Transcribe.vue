@@ -271,7 +271,19 @@ export default {
                 }
             }
         },
-        createMusic() {},
+        async createMusic() {
+            await this.transcriptionModel.initialize().then(() => {
+                this.transcriptionModel
+                    .continueSequence(
+                        this.noteSequence,
+                        this.steps,
+                        this.temperature
+                    )
+                    .then(newSequence => {
+                        this.newSequence = newSequence;
+                    });
+            });
+        },
         rotate() {
             //Simple animation on upload button click
             document.getElementById("uploadButton").style.transform =
