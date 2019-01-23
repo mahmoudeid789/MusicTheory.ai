@@ -154,7 +154,7 @@ export default {
             audioDuration: "",
             rotated: 90,
             //Music generation options
-            steps: 50,
+            steps: 500,
             temperature: 1
         };
     },
@@ -277,8 +277,8 @@ export default {
                 this.generationModel
                     .continueSequence(
                         this.noteSequence,
-                        this.steps,
-                        this.temperature
+                        this.steps
+                        // this.temperature
                     )
                     .then(newSequence => {
                         this.noteSequence = newSequence;

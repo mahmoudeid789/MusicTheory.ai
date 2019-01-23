@@ -6,15 +6,25 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
 Vue.config.productionTip = false;
 
-//#3ff9dc
-//#952aa3
+// Old Theme
+// Vue.use(Vuetify, {
+// 	theme: {
+// 		primary: '#952aa3',
+// 		secondary: '#e946ff',
+// 		accent: '#303747',
+// 		background: '#304049',
+// 		secondaryBackground: '#27343b',
+// 		error: '#ff643d',
+// 	},
+// });
+
 Vue.use(Vuetify, {
 	theme: {
-		primary: '#952aa3',
-		secondary: '#e946ff',
+		primary: '#34c9b2',
+		secondary: '#3ff9dc',
 		accent: '#303747',
-		background: '#304049',
-		secondaryBackground: '#27343b',
+		background: '#37474f',
+		secondaryBackground: '#29363d',
 		error: '#ff643d',
 	},
 });

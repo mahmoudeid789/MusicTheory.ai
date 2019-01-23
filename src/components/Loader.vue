@@ -11,6 +11,7 @@
         >
             <path
                 class="svgpath"
+                stroke="#34c9b2"
                 id="playload"
                 d="M189.5,140.5c-6.6,29.1-32.6,50.9-63.7,50.9c-36.1,0-65.3-29.3-65.3-65.3
 	c0,0,17,0,23.5,0c10.4,0,6.6-45.9,11-46c5.2-0.1,3.6,94.8,7.4,94.8c4.1,0,4.1-92.9,8.2-92.9c4.1,0,4.1,83,8.1,83
@@ -49,7 +50,7 @@ export default {
 
 .svgpath {
     fill: rgba(145, 220, 90, 0);
-    stroke: #892796;
+    // stroke: #892796;
     stroke-width: 3px;
     stroke-dasharray: 1000;
     stroke-linecap: round;
