@@ -34,7 +34,7 @@ body,
 .application {
     height: 100%;
     font-family: "Poppins", sans-serif !important;
-    background: #192329 !important;
+    background: #192629 !important;
 }
 #app {
     height: 100%;

@@ -75,7 +75,8 @@
                         fab
                         dark
                         large
-                        color="primary"
+                        outline
+                        color="secondary"
                     >
                         <v-icon dark>
                             {{ //Nested ternaries are cool
@@ -227,7 +228,7 @@ export default {
                         pixelsPerTimeStep: 5,
                         noteSpacing: 2,
                         noteRGB: "234, 234, 236",
-                        activeNoteRGB: "184, 54, 201"
+                        activeNoteRGB: "52, 201, 178"
                     };
                     this.visualizer = new mm.Visualizer(
                         this.noteSequence,
@@ -324,6 +325,7 @@ export default {
 
 .container {
     margin-top: 50px;
+    margin-bottom: 50px;
     width: 1000px;
     border-radius: 15px;
     padding: 0;
@@ -359,7 +361,7 @@ export default {
             margin-top: -40px;
             position: absolute;
             z-index: 2;
-            background: rgba(45, 49, 53, 0.7);
+            background: rgba(50, 56, 58, 0.7);
         }
         #loading {
             text-align: center;
@@ -454,7 +456,7 @@ export default {
                 top: 100px;
                 right: 47.5%;
                 z-index: 100;
-                // background: rgba(227, 66, 248, 0.1) !important;
+                background: rgba(74, 218, 210, 0.1) !important;
 
                 i {
                     font-size: 40px;
