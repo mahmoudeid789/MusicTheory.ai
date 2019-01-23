@@ -325,7 +325,7 @@ export default {
 
 .container {
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     width: 1000px;
     border-radius: 15px;
     padding: 0;

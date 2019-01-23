@@ -2,6 +2,9 @@
     <div id="app">
         <v-app class="vueWrap" dark>
             <Transcribe/>
+            <div class="footerWrap">
+                <Footer/>
+            </div>
         </v-app>
     </div>
 </template>
@@ -16,11 +19,13 @@ Image Recognition:
 -Emotion Classification
 */
 import Transcribe from "./components/Transcribe.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
     name: "app",
     components: {
-        Transcribe
+        Transcribe,
+        Footer
     }
 };
 </script>

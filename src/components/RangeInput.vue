@@ -299,7 +299,7 @@ svg {
     fill: #fffcf9;
     letter-spacing: 0.3px;
     user-select: none;
-    color: #35424e;
+    color: #2f3d46;
     -moz-user-select: none;
     font-size: 30px !important;
     font-weight: 300;
