@@ -65,7 +65,6 @@
             </div>
             <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
-                <canvas id="gcanvas"></canvas>
                 <transition name="fade">
                     <v-btn
                         v-if="playerHovered"
@@ -109,13 +108,7 @@
                         ></v-text-field>
                     </v-flex>
                     <v-flex sm3>
-                        <v-text-field
-                            class="steps"
-                            v-model="steps"
-                            label="Steps"
-                            background-color="#2f3d46"
-                            box
-                        ></v-text-field>
+                        <v-text-field class="steps" v-model="steps" label="Steps"></v-text-field>
                     </v-flex>
                     <v-flex sm3>
                         <v-btn outline color="primary" @click="generateMusic">Generate Music!</v-btn>
@@ -278,15 +271,11 @@ export default {
                 this.generationModel
                     .continueSequence(
                         this.noteSequence,
-                        this.steps
-                        // this.temperature
+                        this.steps,
+                        this.temperature
                     )
                     .then(newSequence => {
                         this.noteSequence = newSequence;
-                        document.getElementById("canvas").style.display =
-                            "none";
-                        document.getElementById("gcanvas").style.display =
-                            "block";
                         console.log("done");
                         const config = {
                             noteHeight: 10,
@@ -296,8 +285,8 @@ export default {
                             activeNoteRGB: "184, 54, 20"
                         };
                         this.visualizer = new mm.Visualizer(
-                            this.noteSequence,
-                            document.getElementById("gcanvas"),
+                            newSequence,
+                            document.getElementById("canvas"),
                             config
                         );
                         this.player.loadSamples(this.noteSequence);
@@ -439,16 +428,12 @@ export default {
             margin: auto;
             display: none;
             opacity: 0;
-            #canvas,
-            #gcanvas {
+            #canvas {
                 display: block;
                 width: 100% !important;
                 // image-rendering: pixelated;
                 height: 100% !important;
                 color: #764b7c;
-            }
-            #gcanvas {
-                display: none;
             }
 
             #playButton {
