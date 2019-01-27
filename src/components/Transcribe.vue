@@ -267,6 +267,7 @@ export default {
             }
         },
         async generateMusic() {
+            //Initialize generation model and generate music, switch visualizer
             await this.generationModel.initialize().then(() => {
                 this.generationModel
                     .continueSequence(
