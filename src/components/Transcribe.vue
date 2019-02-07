@@ -95,27 +95,29 @@
                 </transition>
             </div>
         </div>
-        <div class="control">
-            <v-container>
-                <v-layout>
-                    <v-flex sm4>
-                        <v-text-field
-                            class="temperature"
-                            v-model="temperature"
-                            label="Temperature"
-                            background-color="#2f3d46"
-                            box
-                        ></v-text-field>
-                    </v-flex>
-                    <v-flex sm3>
-                        <v-text-field class="steps" v-model="steps" label="Steps"></v-text-field>
-                    </v-flex>
-                    <v-flex sm3>
-                        <v-btn outline color="primary" @click="generateMusic">Generate Music!</v-btn>
-                    </v-flex>
-                </v-layout>
-            </v-container>
-        </div>
+        <transition name="fade" v-if="canvasLoaded">
+            <div class="control">
+                <v-container>
+                    <v-layout>
+                        <v-flex sm4>
+                            <v-text-field
+                                class="temperature"
+                                v-model="temperature"
+                                label="Temperature"
+                                background-color="#2f3d46"
+                                box
+                            ></v-text-field>
+                        </v-flex>
+                        <v-flex sm3>
+                            <v-text-field class="steps" v-model="steps" label="Steps"></v-text-field>
+                        </v-flex>
+                        <v-flex sm3>
+                            <v-btn outline color="primary" @click="generateMusic">Generate Music!</v-btn>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+            </div>
+        </transition>
     </div>
 </template>
 
