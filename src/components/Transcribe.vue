@@ -95,6 +95,9 @@
                 </transition>
             </div>
         </div>
+        <transition name="fade" v-if="!canvasLoaded">
+            <p>nice</p>
+        </transition>
         <transition name="fade" v-if="canvasLoaded">
             <div class="control">
                 <v-container>
