@@ -96,7 +96,10 @@
             </div>
         </div>
         <transition name="fade" v-if="!canvasLoaded">
-            <p>nice</p>
+            <p class="description">
+                MusicTheory.ai uses neural networks for polyphonic music transcription to convert raw audio to sheet music,
+                and then expands upon it with theory-trained LSTM (long short-term memory) recurrent models.
+            </p>
         </transition>
         <transition name="fade" v-if="canvasLoaded">
             <div class="control">
