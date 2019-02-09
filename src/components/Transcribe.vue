@@ -177,7 +177,7 @@ export default {
                 });
             }
         });
-        tl.from(".container", 2, { opacity: 0 });
+        tl.from(".container", 2, { opacity: 0, scale: 0 });
     },
     methods: {
         initUI() {
@@ -335,6 +335,7 @@ export default {
     border-radius: 15px;
     padding: 0;
     opacity: 1;
+    scale: 1;
     .description {
         padding: 30px;
         p {
