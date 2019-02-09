@@ -95,12 +95,13 @@
                 </transition>
             </div>
         </div>
-        <transition name="fade" v-if="!canvasLoaded">
-            <p class="description">
+        <div class="description">
+            <p>
                 MusicTheory.ai uses neural networks for polyphonic music transcription to convert raw audio to sheet music,
                 and then expands upon it with theory-trained LSTM (long short-term memory) recurrent models.
             </p>
-        </transition>
+        </div>
+
         <transition name="fade" v-if="canvasLoaded">
             <div class="control">
                 <v-container>
@@ -131,6 +132,7 @@
 import Loader from "./Loader";
 import RangeInput from "./RangeInput";
 import { setTimeout } from "timers";
+import { TweenMax } from "gsap";
 import * as mm from "@magenta/music";
 
 export default {
@@ -161,16 +163,21 @@ export default {
         };
     },
     mounted: function() {
-        this.transcriptionModel = new mm.OnsetsAndFrames(
-            "https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni"
-        );
-        this.generationModel = new mm.MusicRNN(
-            "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn"
-        );
-        this.transcriptionModel.initialize().then(() => {
-            this.modelReady = true;
-            this.initUI();
+        var tl = new TimelineMax({
+            onComplete: () => {
+                this.transcriptionModel = new mm.OnsetsAndFrames(
+                    "https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni"
+                );
+                this.generationModel = new mm.MusicRNN(
+                    "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn"
+                );
+                this.transcriptionModel.initialize().then(() => {
+                    this.modelReady = true;
+                    this.initUI();
+                });
+            }
         });
+        tl.from(".container", 2, { opacity: 0 });
     },
     methods: {
         initUI() {
@@ -327,6 +334,17 @@ export default {
     width: 1000px;
     border-radius: 15px;
     padding: 0;
+    opacity: 1;
+    .description {
+        padding: 30px;
+        p {
+            font-size: 17px;
+            font-family: "Open Sans", sans-serif;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 0;
+        }
+    }
     .header {
         text-align: center;
         height: 80px;
@@ -338,6 +356,9 @@ export default {
                 font-size: 28px;
             }
         }
+    }
+    #file-input:hover .description {
+        display: none !important;
     }
     .player {
         // background: #364c58;

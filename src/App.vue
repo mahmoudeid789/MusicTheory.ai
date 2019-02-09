@@ -33,12 +33,14 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500");
+@import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
 
 html,
 body,
 .application {
     height: 100%;
-    font-family: "Poppins", sans-serif !important;
+    /* font-family: "Poppins", sans-serif !important; */
+    font-family: "Open Sans", sans-serif !important;
     background: #192629 !important;
 }
 #app {

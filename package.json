@@ -1,5 +1,5 @@
 {
-	"name": "mlproject",
+	"name": "MusicTheory.ai",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"@magenta/music": "^1.4.1",
+		"gsap": "^2.0.2",
 		"node-sass": "^4.11.0",
 		"sass-loader": "^7.1.0",
 		"vue": "^2.5.17",
