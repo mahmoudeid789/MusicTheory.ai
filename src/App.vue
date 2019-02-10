@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <v-app class="vueWrap" dark>
-            <Transcribe/>
+            <router-view/>
             <div class="footerWrap">
                 <Footer/>
             </div>
@@ -24,7 +24,6 @@ import Footer from "./components/Footer.vue";
 export default {
     name: "app",
     components: {
-        Transcribe,
         Footer
     }
 };
@@ -41,7 +40,7 @@ body,
     height: 100%;
     /* font-family: "Poppins", sans-serif !important; */
     font-family: "Open Sans", sans-serif !important;
-    background: #192629 !important;
+    /* background: #192629 !important; */
 }
 #app {
     height: 100%;

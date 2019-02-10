@@ -164,20 +164,31 @@ export default {
     },
     mounted: function() {
         var tl = new TimelineMax({
+            delay: 0.5,
             onComplete: () => {
-                this.transcriptionModel = new mm.OnsetsAndFrames(
-                    "https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni"
-                );
-                this.generationModel = new mm.MusicRNN(
-                    "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn"
-                );
-                this.transcriptionModel.initialize().then(() => {
-                    this.modelReady = true;
-                    this.initUI();
-                });
+                // this.transcriptionModel = new mm.OnsetsAndFrames(
+                //     "https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni"
+                // );
+                // this.generationModel = new mm.MusicRNN(
+                //     "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn"
+                // );
+                // this.transcriptionModel.initialize().then(() => {
+                //     this.modelReady = true;
+                //     this.initUI();
+                // });
             }
         });
-        tl.from(".container", 2, { opacity: 0, scale: 0 });
+        tl.from(".container", 0.5, {
+            opacity: 0,
+            scaleY: 0,
+            ease: Expo.easeOut
+        })
+            .from(".player", 0.5, {
+                opacity: 0
+            })
+            .from(".header", 0.5, {
+                opacity: 0
+            });
     },
     methods: {
         initUI() {
@@ -335,7 +346,7 @@ export default {
     border-radius: 15px;
     padding: 0;
     opacity: 1;
-    scale: 1;
+    transform-origin: top;
     .description {
         padding: 30px;
         p {
@@ -365,7 +376,7 @@ export default {
         // background: #364c58;
         // background: #2b3f49;
         // background: #37474f;
-
+        transform-origin: top;
         width: 100%;
         height: 300px;
         padding: 40px 0;
