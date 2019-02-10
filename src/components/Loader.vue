@@ -38,8 +38,8 @@ export default {
 
 <style lang="scss" scoped>
 .l_container {
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
     margin: auto !important;
 }
 
@@ -51,7 +51,7 @@ export default {
 .svgpath {
     fill: rgba(145, 220, 90, 0);
     // stroke: #892796;
-    stroke-width: 3px;
+    stroke-width: 4.5px;
     stroke-dasharray: 1000;
     stroke-linecap: round;
     z-index: 2;
@@ -63,7 +63,7 @@ export default {
 }
 
 #playload {
-    animation: dash 2.5s reverse ease-in-out infinite;
+    animation: dash 4.5s reverse ease-in-out infinite;
 }
 
 @keyframes dash {
