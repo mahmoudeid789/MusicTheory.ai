@@ -2,7 +2,7 @@
     <div>
         <section class="hero">
             <v-container class="content">
-                <v-layout row>
+                <v-layout row class="main">
                     <v-flex sm6 class="logo">
                         <p>
                             <v-icon color="primary">queue_music</v-icon>MusicTheory.ai
@@ -35,7 +35,16 @@
                         </div>
                     </v-flex>
                 </v-layout>
+                <v-layout row class="go">
+                    <v-flex sm12>
+                        <v-btn outline>Get Started</v-btn>
+                        <v-btn outline>Learn More</v-btn>
+                    </v-flex>
+                </v-layout>
             </v-container>
+        </section>
+        <section class="information">
+            <h1>hi</h1>
         </section>
     </div>
 </template>
@@ -61,15 +70,19 @@ export default {
 
 <style lang="scss" scoped>
 .hero {
-    height: 600px;
+    height: 60vh;
+    min-height: 500px;
     background: #192629 !important;
     display: flex;
     align-items: center;
     justify-content: center;
     .content {
         max-width: 1000px;
+        .main {
+            margin-bottom: -20px;
+        }
         .logo {
-            margin-bottom: 100px;
+            margin-bottom: 70px;
             p {
                 margin-top: -27px;
                 text-align: right;
@@ -95,8 +108,7 @@ export default {
                 margin-top: 10px;
             }
             .r2 {
-                margin-top: -17px;
-                margin-bottom: -80px;
+                margin-top: -19px;
             }
             text-align: center;
             p {
@@ -109,6 +121,14 @@ export default {
                 font-size: 35px;
             }
         }
+        .go {
+            padding: 0px;
+            text-align: center;
+        }
     }
+}
+.information {
+    height: 600px;
+    background: white;
 }
 </style>
