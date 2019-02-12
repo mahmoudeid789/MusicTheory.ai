@@ -37,8 +37,13 @@
                 </v-layout>
                 <v-layout row class="go">
                     <v-flex sm12>
-                        <v-btn outline color="white">Get Started</v-btn>
-                        <v-btn outline color="white" @click="scrollDown">Learn More</v-btn>
+                        <v-btn outline color="white">
+                            <router-link
+                                to="app"
+                                style="text-decoration: none; color: white"
+                            >Get Started</router-link>
+                        </v-btn>
+                        <v-btn outline color="white" @click="scrollDown()">Learn More</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -67,7 +72,7 @@
 </template>
 
 <script>
-import { TweenMax } from "gsap";
+// import { TweenMax } from "gsap";
 import AudioSVG from "./AudioSVG";
 import ProgressionSVG from "./ProgressionSVG";
 import Loader from "./Loader";
@@ -83,9 +88,7 @@ export default {
         return {};
     },
     methods: {
-        scrollDown() {
-            TweenLite.to(window, 1, { scrollTo: ".information" });
-        }
+        scrollDown() {}
     },
     mounted: function() {
         var tl = new TimelineMax();
@@ -97,7 +100,7 @@ export default {
                     y: 20,
                     opacity: 0
                 },
-                "-=0.75"
+                "-=0.7"
             )
             .from(
                 ".s1",
