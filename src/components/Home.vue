@@ -15,20 +15,20 @@
                     </v-flex>
                 </v-layout>
                 <v-layout row>
-                    <v-flex sm4 class="step">
+                    <v-flex sm4 class="step s1">
                         <p>Upload Audio</p>
                         <div class="r1">
                             <AudioSVG/>
                         </div>
                     </v-flex>
-                    <v-flex sm4 class="step">
+                    <v-flex sm4 class="step s2">
                         <p>Define Progression</p>
                         <h1 class="primary--text">
                             I – V –
                             <span>vi</span> – IV
                         </h1>
                     </v-flex>
-                    <v-flex sm4 class="step">
+                    <v-flex sm4 class="step s3">
                         <p>Get Generated Music</p>
                         <div class="r2">
                             <Loader/>
@@ -38,7 +38,7 @@
                 <v-layout row class="go">
                     <v-flex sm12>
                         <v-btn outline color="white">Get Started</v-btn>
-                        <v-btn outline color="white">Learn More</v-btn>
+                        <v-btn outline color="white" @click="scrollDown">Learn More</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -57,8 +57,11 @@
             </p>
         </section>
         <v-container>
-            <v-layout row class="transcription"></v-layout>
-            <v-layout row class="generation"></v-layout>
+            <v-layout row class="transcription">
+                <v-flex sm7 class="visual"></v-flex>
+                <v-flex sm5 class="text"></v-flex>
+            </v-layout>
+            <!-- <v-layout row class="generation"></v-layout> -->
         </v-container>
     </div>
 </template>
@@ -78,6 +81,60 @@ export default {
     },
     data() {
         return {};
+    },
+    methods: {
+        scrollDown() {
+            TweenLite.to(window, 1, { scrollTo: ".information" });
+        }
+    },
+    mounted: function() {
+        var tl = new TimelineMax();
+        tl.from(".logo", 1, { y: 20, opacity: 0 })
+            .from(
+                ".slogan",
+                1,
+                {
+                    y: 20,
+                    opacity: 0
+                },
+                "-=0.75"
+            )
+            .from(
+                ".s1",
+                1,
+                {
+                    y: 20,
+                    opacity: 0
+                },
+                "-=0.5"
+            )
+            .from(
+                ".s2",
+                1,
+                {
+                    y: 20,
+                    opacity: 0
+                },
+                "-=0.5"
+            )
+            .from(
+                ".s3",
+                1,
+                {
+                    y: 20,
+                    opacity: 0
+                },
+                "-=0.5"
+            )
+            .from(
+                ".go",
+                1,
+                {
+                    y: 20,
+                    opacity: 0
+                },
+                "-=0.2"
+            );
     }
 };
 </script>
