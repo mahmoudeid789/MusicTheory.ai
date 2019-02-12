@@ -37,15 +37,29 @@
                 </v-layout>
                 <v-layout row class="go">
                     <v-flex sm12>
-                        <v-btn outline>Get Started</v-btn>
-                        <v-btn outline>Learn More</v-btn>
+                        <v-btn outline color="white">Get Started</v-btn>
+                        <v-btn outline color="white">Learn More</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
         </section>
         <section class="information">
-            <h1>hi</h1>
+            <p class="lead">How it Works</p>
+            <p class="leadtxt">
+                MusicTheory.ai uses neural networks for polyphonic music transcription to convert raw audio to sheet music,
+                and then expands upon it with progression-trained LSTM (long short-term memory) recurrent models.
+                Models are created with
+                <a
+                    href="https://js.tensorflow.org/"
+                >Tensorflow.js</a> and
+                <a href="https://magenta.tensorflow.org/">Magenta.js</a>, hence allowing for fast,
+                GPU-accelerated inference on the browser.
+            </p>
         </section>
+        <v-container>
+            <v-layout row class="transcription"></v-layout>
+            <v-layout row class="generation"></v-layout>
+        </v-container>
     </div>
 </template>
 
@@ -80,6 +94,7 @@ export default {
         max-width: 1000px;
         .main {
             margin-bottom: -20px;
+            color: white;
         }
         .logo {
             margin-bottom: 70px;
@@ -88,7 +103,7 @@ export default {
                 text-align: right;
                 font-size: 30px;
                 padding: 20px;
-                font-weight: 300;
+                font-weight: 200;
                 i {
                     font-size: 34px;
                 }
@@ -112,6 +127,8 @@ export default {
             }
             text-align: center;
             p {
+                color: white;
+                opacity: 0.8;
                 font-size: 18px;
                 font-weight: 200;
                 margin-bottom: 0;
@@ -122,13 +139,24 @@ export default {
             }
         }
         .go {
-            padding: 0px;
             text-align: center;
         }
     }
 }
 .information {
-    height: 600px;
-    background: white;
+    width: 580px;
+    text-align: center;
+    margin: 90px auto;
+    .lead {
+        font-size: 30px;
+        font-weight: normal;
+    }
+    .leadtxt {
+        font-weight: 300;
+        font-size: 18px;
+        a {
+            text-decoration: none;
+        }
+    }
 }
 </style>

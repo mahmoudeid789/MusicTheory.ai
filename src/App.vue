@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <v-app class="vueWrap" dark>
+        <v-app class="vueWrap">
             <router-view/>
             <div class="footerWrap">
                 <Footer/>
