@@ -4,7 +4,8 @@
             <p>
                 <span>
                     <v-icon color="primary">queue_music</v-icon>
-                </span>MusicTheory.ai
+                </span>
+                <router-link style="text-decoration: none" to="/">MusicTheory.ai</router-link>
             </p>
         </div>
         <div
@@ -23,21 +24,14 @@
                     @mouseleave="playerHovered = false"
                 ></div>
             </transition>
-
-            <div id="loading">
-                <div class="musicLoader">
-                    <Loader/>
-                </div>
-                <p>Loading Model..</p>
-            </div>
             <div id="loaded">
                 <div class="introduction">
                     <input type="file" id="file-input" @click="rotate" title=" ">
 
-                    <p>
+                    <!-- <p>
                         Upload an
                         <span class="secondary--text">audio file</span>
-                    </p>
+                    </p>-->
                     <!--TODO: add note that audio will be transcribed to 8 quantized time steps per quarter-->
                     <v-btn
                         outline
@@ -96,10 +90,7 @@
             </div>
         </div>
         <div class="description">
-            <p>
-                MusicTheory.ai uses neural networks for polyphonic music transcription to convert raw audio to sheet music,
-                and then expands upon it with theory-trained LSTM (long short-term memory) recurrent models.
-            </p>
+            <p>Upload an audio file to get started!</p>
         </div>
 
         <transition name="fade" v-if="canvasLoaded">
@@ -134,7 +125,6 @@ import RangeInput from "./RangeInput";
 import { setTimeout } from "timers";
 import { TweenMax } from "gsap";
 import * as mm from "@magenta/music";
-
 export default {
     name: "Transcribe",
     components: {
@@ -164,18 +154,14 @@ export default {
     },
     mounted: function() {
         var tl = new TimelineMax({
-            delay: 0.5,
             onComplete: () => {
-                // this.transcriptionModel = new mm.OnsetsAndFrames(
-                //     "https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni"
-                // );
-                // this.generationModel = new mm.MusicRNN(
-                //     "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn"
-                // );
-                // this.transcriptionModel.initialize().then(() => {
-                //     this.modelReady = true;
-                //     this.initUI();
-                // });
+                this.transcriptionModel = new mm.OnsetsAndFrames(
+                    "https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni"
+                );
+                this.generationModel = new mm.MusicRNN(
+                    "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn"
+                );
+                this.initUI();
             }
         });
         tl.from(".container", 0.5, {
@@ -192,32 +178,35 @@ export default {
     },
     methods: {
         initUI() {
-            //Use timeout to smoothen load transition
-            setTimeout(() => {
-                Velocity(document.getElementById("loading"), {
-                    opacity: 0,
-                    display: "none"
-                });
-                setTimeout(() => {
-                    Velocity(document.getElementById("loaded"), {
-                        opacity: 1,
-                        display: "block"
-                    });
-                }, 550);
-            }, 100);
             //Handle audio input
             const fileInput = document.getElementById("file-input");
             fileInput.addEventListener("change", e => {
-                this.transcribeFile(e.target.files[0]);
                 this.fileName = e.target.files[0].name;
+                var tl = new TimelineMax({
+                    onComplete: () => {
+                        // this.transcriptionModel.initialize().then(() => {
+                        //     this.modelReady = true;
+                        //     this.transcribeFile(e.target.files[0]);
+                        // });
+                    }
+                });
+                tl.to("#loaded", 0.6, {
+                    opacity: 0,
+                    y: 20,
+                    display: "none"
+                }).to("#visualizerLoader", 0.6, {
+                    display: "block",
+                    opacity: 1,
+                    y: 0
+                });
             });
         },
         async transcribeFile(file) {
             //Hard coded transition; can't use velocity in async (target for workaround fix)
-            document.getElementById("loaded").style.display = "none";
-            document.getElementById("loaded").style.opacity = "0";
-            document.getElementById("visualizerLoader").style.display = "block";
-            document.getElementById("visualizerLoader").style.opacity = "1";
+            // document.getElementById("loaded").style.display = "none";
+            // document.getElementById("loaded").style.opacity = "0";
+            // document.getElementById("visualizerLoader").style.display = "block";
+            // document.getElementById("visualizerLoader").style.opacity = "1";
             await this.transcriptionModel
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
@@ -225,7 +214,6 @@ export default {
                         noteSequence,
                         8
                     );
-
                     //Transition into canvas
                     Velocity(document.getElementById("visualizerLoader"), {
                         opacity: 0,
@@ -237,10 +225,8 @@ export default {
                             display: "block"
                         });
                     }, 500);
-
                     //Get properties
                     this.audioDuration = this.noteSequence.timeSignatures;
-
                     //Setup note visualizer
                     const config = {
                         noteHeight: 10,
@@ -331,6 +317,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+    color: white;
+}
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.5s;
@@ -340,18 +329,19 @@ export default {
 }
 .container {
     margin-top: 50px;
-    margin-bottom: 80px;
+    margin-bottom: 75px;
     width: 1000px;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 0;
     opacity: 1;
     transform-origin: top;
     .description {
         padding: 30px;
+        text-align: center;
         p {
-            font-size: 17px;
+            font-size: 15px;
             font-family: "Open Sans", sans-serif;
-            font-weight: 400;
+            font-weight: 200;
             opacity: 0.95;
             margin-bottom: 0;
         }
@@ -384,7 +374,6 @@ export default {
         &:hover {
             cursor: pointer;
         }
-
         #shader {
             width: 100%;
             height: 100%;
@@ -393,33 +382,20 @@ export default {
             z-index: 2;
             background: rgba(50, 56, 58, 0.7);
         }
-        #loading {
-            text-align: center;
-            margin-top: -40px;
-            p {
-                font-size: 16px;
-                font-weight: 300;
-                margin-top: -30px;
-            }
-        }
-
         #loaded {
             text-align: center;
-            display: none;
-            opacity: 0;
             div,
             p {
                 margin: 20px;
             }
             .introduction {
                 input[type="file"] {
-                    margin-left: -450px;
-
+                    margin-left: -405px;
                     z-index: 3;
                     opacity: 0;
                     width: 900px;
                     height: 300px;
-                    margin-top: -60px;
+                    margin-top: -40px;
                     position: absolute;
                     color: transparent;
                     font-size: 0;
@@ -439,17 +415,19 @@ export default {
                     font-weight: 300;
                 }
                 .uploadButton {
+                    margin-top: 67px;
                     i {
-                        font-size: 40px;
+                        font-size: 50px;
                         transform-origin: 50% 50%;
                         transition: 0.5s;
                     }
                 }
             }
         }
-
         .visualizerLoader {
             text-align: center;
+            opacity: 0;
+            transform: translate(0, 20px);
             display: none;
             p {
                 font-size: 19px;
@@ -476,14 +454,12 @@ export default {
                 height: 100% !important;
                 color: #764b7c;
             }
-
             #playButton {
                 position: absolute;
                 top: 100px;
                 right: 47.5%;
                 z-index: 100;
                 background: rgba(74, 218, 210, 0.1) !important;
-
                 i {
                     font-size: 40px;
                 }

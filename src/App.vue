@@ -1,6 +1,9 @@
 <template>
     <div id="app">
-        <v-app class="vueWrap">
+        <v-app
+            class="vueWrap"
+            :style="$route.name === 'Home' ? 'background:rgb(250,250,250)' : 'background:#192629'"
+        >
             <router-view/>
             <div class="footerWrap">
                 <Footer/>
@@ -10,14 +13,6 @@
 </template>
 
 <script>
-/*IDEAS
-Voice Transcription
-Image Recognition:
--Chemistry/Physics (elements, velocity of collision)
--Show and TEll (modeldepot) **
--Image colorization (modeldepot) **
--Emotion Classification
-*/
 import Transcribe from "./components/Transcribe.vue";
 import Footer from "./components/Footer.vue";
 
@@ -36,11 +31,14 @@ export default {
 
 html,
 body,
-.application {
+html {
+    background: #192629;
+}
+.vueWrap {
     height: 100%;
     /* font-family: "Poppins", sans-serif !important; */
     font-family: "Open Sans", sans-serif !important;
-    background: rgb(250, 250, 250) !important;
+    background: rgb(250, 250, 250);
 }
 #app {
     height: 100%;

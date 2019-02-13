@@ -1,6 +1,11 @@
 <template>
     <v-footer dark height="auto">
-        <v-card flat tile class="lighten-1 white--text text-xs-center card" color="#2b4349">
+        <v-card
+            flat
+            tile
+            class="lighten-1 white--text text-xs-center card"
+            :color="$route.name === 'Home' ? '#2b4349' : '#192629'"
+        >
             <v-card-text>
                 <v-btn v-for="icon in icons" :key="icon" class="mx-3 primary--text" icon>
                     <v-icon size="24px">{{ icon }}</v-icon>
