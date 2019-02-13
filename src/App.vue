@@ -40,7 +40,7 @@ body,
     height: 100%;
     /* font-family: "Poppins", sans-serif !important; */
     font-family: "Open Sans", sans-serif !important;
-    /* background: #192629 !important; */
+    background: rgb(250, 250, 250) !important;
 }
 #app {
     height: 100%;

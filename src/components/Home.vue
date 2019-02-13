@@ -206,6 +206,7 @@ export default {
 .information {
     width: 580px;
     text-align: center;
+
     margin: 90px auto;
     .lead {
         font-size: 30px;
