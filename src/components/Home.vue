@@ -208,6 +208,7 @@ export default {
     text-align: center;
 
     margin: 90px auto;
+    margin-bottom: 190px;
     .lead {
         font-size: 30px;
         font-weight: normal;

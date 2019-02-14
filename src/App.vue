@@ -30,9 +30,10 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
 
 html,
-body,
-html {
+body {
     background: #192629;
+    position: relative;
+    min-height: 100%;
 }
 .vueWrap {
     height: 100%;

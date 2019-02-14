@@ -1,5 +1,5 @@
 <template>
-    <v-footer dark height="auto">
+    <v-footer class="footer" dark height="auto">
         <v-card
             flat
             tile
@@ -45,6 +45,11 @@ export default {
 .card {
     width: 100%;
     margin: auto;
+}
+.footer {
+    width: 100%;
+    bottom: 0 !important;
+    position: absolute;
 }
 .name {
     font-weight: 300;

@@ -90,7 +90,14 @@
             </div>
         </div>
         <div class="description">
-            <p>Upload an audio file to get started!</p>
+            <p class="p1">
+                Upload an
+                <span class="secondary--text">audio file</span> to get started!
+            </p>
+            <p
+                class="p2"
+                style="display: none; opacity: 0"
+            >Please allow about half the duration of the audio to transcribe...</p>
         </div>
 
         <transition name="fade" v-if="canvasLoaded">
@@ -174,6 +181,9 @@ export default {
             })
             .from(".header", 0.5, {
                 opacity: 0
+            })
+            .from(".p1", 0.5, {
+                opacity: 0
             });
     },
     methods: {
@@ -184,29 +194,38 @@ export default {
                 this.fileName = e.target.files[0].name;
                 var tl = new TimelineMax({
                     onComplete: () => {
-                        // this.transcriptionModel.initialize().then(() => {
-                        //     this.modelReady = true;
-                        //     this.transcribeFile(e.target.files[0]);
-                        // });
+                        this.transcriptionModel.initialize().then(() => {
+                            this.modelReady = true;
+                            this.transcribeFile(e.target.files[0]);
+                        });
                     }
                 });
                 tl.to("#loaded", 0.6, {
                     opacity: 0,
                     y: 20,
                     display: "none"
-                }).to("#visualizerLoader", 0.6, {
-                    display: "block",
-                    opacity: 1,
-                    y: 0
-                });
+                })
+                    .to("#visualizerLoader", 0.6, {
+                        display: "block",
+                        opacity: 1,
+                        y: 0
+                    })
+                    .to(
+                        ".p1",
+                        0.5,
+                        {
+                            opacity: 0,
+                            display: "none"
+                        },
+                        "-=0.5"
+                    )
+                    .to(".p2", 0.5, {
+                        display: "block",
+                        opacity: 1
+                    });
             });
         },
         async transcribeFile(file) {
-            //Hard coded transition; can't use velocity in async (target for workaround fix)
-            // document.getElementById("loaded").style.display = "none";
-            // document.getElementById("loaded").style.opacity = "0";
-            // document.getElementById("visualizerLoader").style.display = "block";
-            // document.getElementById("visualizerLoader").style.opacity = "1";
             await this.transcriptionModel
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
@@ -214,17 +233,18 @@ export default {
                         noteSequence,
                         8
                     );
-                    //Transition into canvas
-                    Velocity(document.getElementById("visualizerLoader"), {
+                    var tl = new TimelineMax();
+
+                    tl.to("#visualizerLoader", 0.5, {
                         opacity: 0,
+                        y: 20,
                         display: "none"
+                    }).to("#canvasWrap", 0.5, {
+                        display: "block",
+                        opacity: 1,
+                        y: 0
                     });
-                    setTimeout(() => {
-                        Velocity(document.getElementById("canvasWrap"), {
-                            opacity: 1,
-                            display: "block"
-                        });
-                    }, 500);
+
                     //Get properties
                     this.audioDuration = this.noteSequence.timeSignatures;
                     //Setup note visualizer
@@ -331,15 +351,16 @@ export default {
     margin-top: 50px;
     margin-bottom: 75px;
     width: 1000px;
+    max-height: 510px !important;
     border-radius: 5px;
     padding: 0;
     opacity: 1;
     transform-origin: top;
     .description {
-        padding: 30px;
+        padding: 27px;
         text-align: center;
         p {
-            font-size: 15px;
+            font-size: 16px;
             font-family: "Open Sans", sans-serif;
             font-weight: 200;
             opacity: 0.95;
@@ -367,7 +388,7 @@ export default {
         // background: #37474f;
         transform-origin: top;
         width: 100%;
-        height: 300px;
+        height: 350px;
         padding: 40px 0;
         position: relative;
         transition: 0.25s;
@@ -415,7 +436,7 @@ export default {
                     font-weight: 300;
                 }
                 .uploadButton {
-                    margin-top: 67px;
+                    margin-top: 97px;
                     i {
                         font-size: 50px;
                         transform-origin: 50% 50%;
@@ -431,7 +452,7 @@ export default {
             display: none;
             p {
                 font-size: 19px;
-                margin-top: 65px;
+                margin-top: 95px;
                 font-weight: 300;
                 line-height: 35px;
                 .cpuWarning {
@@ -443,6 +464,7 @@ export default {
         }
         .canvasWrap {
             width: 90%;
+            transform: translate(0, 20px);
             height: 100%;
             margin: auto;
             display: none;
@@ -456,7 +478,7 @@ export default {
             }
             #playButton {
                 position: absolute;
-                top: 100px;
+                top: 130px;
                 right: 47.5%;
                 z-index: 100;
                 background: rgba(74, 218, 210, 0.1) !important;
