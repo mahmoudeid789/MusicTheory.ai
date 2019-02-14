@@ -400,7 +400,7 @@ export default {
             height: 100%;
             margin-top: -40px;
             position: absolute;
-            z-index: 2;
+            z-index: -1;
             background: rgba(50, 56, 58, 0.7);
         }
         #loaded {
@@ -478,8 +478,8 @@ export default {
             }
             #playButton {
                 position: absolute;
-                top: 130px;
-                right: 47.5%;
+                top: 90px;
+                right: 45%;
                 z-index: 100;
                 background: rgba(74, 218, 210, 0.1) !important;
                 i {
@@ -488,11 +488,11 @@ export default {
             }
             p {
                 position: absolute;
-                bottom: 50px;
+                bottom: 35px;
                 width: 100%;
-                margin-left: -50px;
+                margin-left: 0px;
                 text-align: center;
-                z-index: 100;
+                z-index: 10000 !important;
                 font-size: 17px;
                 font-weight: 200;
             }
