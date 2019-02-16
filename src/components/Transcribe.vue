@@ -127,16 +127,14 @@
 </template>
 
 <script>
-import Loader from "./Loader";
-import RangeInput from "./RangeInput";
+import Loader from "./ui/Loader";
 import { setTimeout } from "timers";
 import { TweenMax } from "gsap";
 import * as mm from "@magenta/music";
 export default {
     name: "Transcribe",
     components: {
-        Loader,
-        RangeInput
+        Loader
     },
     data() {
         return {

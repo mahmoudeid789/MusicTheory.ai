@@ -73,9 +73,9 @@
 
 <script>
 // import { TweenMax } from "gsap";
-import AudioSVG from "./AudioSVG";
-import ProgressionSVG from "./ProgressionSVG";
-import Loader from "./Loader";
+import AudioSVG from "./ui/AudioSVG";
+import ProgressionSVG from "./ui/ProgressionSVG";
+import Loader from "./ui/Loader";
 
 export default {
     name: "Home",
