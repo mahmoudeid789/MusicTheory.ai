@@ -13,11 +13,17 @@ export default new Router({
 			path: '/',
 			name: 'Home',
 			component: Home,
+			meta: {
+				title: 'MusicTheory.ai',
+			},
 		},
 		{
 			path: '/app',
 			name: 'Transcribe',
 			component: Transcribe,
+			meta: {
+				title: 'MusicTheory.ai',
+			},
 		},
 	],
 });
