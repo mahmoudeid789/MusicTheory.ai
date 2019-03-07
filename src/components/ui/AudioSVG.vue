@@ -6,7 +6,7 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 50 38.05"
         >
-            <title>Audio Wave</title>
+            <title>Audio SVG Loading Waves</title>
             <path
                 id="Line_1"
                 data-name="Line 1"
