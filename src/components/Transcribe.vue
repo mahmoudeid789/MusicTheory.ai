@@ -102,29 +102,27 @@
             >Please allow about half the duration of the audio to transcribe...</p>
         </div>
 
-        <transition name="fade" v-if="canvasLoaded">
-            <div class="control">
-                <v-container>
-                    <v-layout>
-                        <v-flex sm4>
-                            <v-text-field
-                                class="temperature"
-                                v-model="temperature"
-                                label="Temperature"
-                                background-color="#2f3d46"
-                                box
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex sm3>
-                            <v-text-field class="steps" v-model="steps" label="Steps"></v-text-field>
-                        </v-flex>
-                        <v-flex sm3>
-                            <v-btn outline color="primary" @click="generateMusic">Generate Music!</v-btn>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </div>
-        </transition>
+        <div class="control">
+            <v-container>
+                <v-layout>
+                    <v-flex sm4>
+                        <v-text-field
+                            class="temperature"
+                            v-model="temperature"
+                            label="Temperature"
+                            background-color="#2f3d46"
+                            box
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex sm3>
+                        <v-text-field class="steps" v-model="steps" label="Steps"></v-text-field>
+                    </v-flex>
+                    <v-flex sm3>
+                        <v-btn outline color="primary" @click="generateMusic">Generate Music!</v-btn>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </div>
     </div>
 </template>
 
@@ -191,6 +189,8 @@ export default {
             const fileInput = document.getElementById("file-input");
             fileInput.addEventListener("change", e => {
                 this.fileName = e.target.files[0].name;
+
+                //ANIMATION SEQUENCE for after file is uploaded
                 var tl = new TimelineMax({
                     onComplete: () => {
                         this.transcriptionModel.initialize().then(() => {
@@ -225,6 +225,7 @@ export default {
             });
         },
         async transcribeFile(file) {
+            //Transcribe the music
             await this.transcriptionModel
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
@@ -232,18 +233,24 @@ export default {
                         noteSequence,
                         8
                     );
-                    var tl = new TimelineMax();
 
+                    //ANIMATION SEQUENCE for after music is transcribed
+                    var tl = new TimelineMax();
                     tl.to("#visualizerLoader", 0.5, {
                         opacity: 0,
                         y: 20,
                         display: "none"
                     })
-                        .to(".description", 0.5, {
-                            opacity: 0,
-                            y: 20,
-                            display: "none"
-                        })
+                        .to(
+                            ".description",
+                            0.5,
+                            {
+                                opacity: 0,
+                                y: 20,
+                                display: "none"
+                            },
+                            "-=0.25"
+                        )
                         .to("#canvasWrap", 0.5, {
                             display: "block",
                             opacity: 1,
@@ -252,7 +259,19 @@ export default {
                         .to("#controlWrap", 0.5, {
                             display: "block",
                             opacity: 1
-                        });
+                        })
+                        .to(".container", 0.5, {
+                            height: "800px"
+                        })
+                        .to(
+                            ".control",
+                            0.5,
+                            {
+                                display: "block",
+                                opacity: 1
+                            },
+                            "-=0.25"
+                        );
 
                     //Get properties
                     this.audioDuration = this.noteSequence.timeSignatures;
@@ -286,7 +305,7 @@ export default {
                 });
         },
         togglePlayer() {
-            //Handles clicks on the player depending on playerState
+            //Handles player click
             if (this.canvasLoaded === true) {
                 if (
                     //Player not started
@@ -360,7 +379,7 @@ export default {
     margin-top: 50px;
     margin-bottom: 75px;
     width: 1000px;
-    max-height: 510px !important;
+    height: 510px;
     border-radius: 5px;
     padding: 0;
     opacity: 1;
@@ -519,6 +538,8 @@ export default {
         }
     }
     .control {
+        display: none;
+        opacity: 0;
         .flex {
             align-items: center;
             margin: auto;
