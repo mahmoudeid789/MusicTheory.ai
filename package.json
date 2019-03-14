@@ -6,7 +6,8 @@
 		"serve": "vue-cli-service serve",
 		"start": "node server.js",
 		"build": "vue-cli-service build",
-		"lint": "vue-cli-service lint"
+		"lint": "vue-cli-service lint",
+		"dev": "vue-cli-service serve"
 	},
 	"dependencies": {
 		"@magenta/music": "^1.4.1",

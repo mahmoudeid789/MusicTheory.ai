@@ -375,6 +375,7 @@ export default {
         text-align: center;
         height: 80px;
         padding: 15px;
+        font-weight: 200;
         p {
             font-size: 20px;
             margin-top: 8px;
@@ -506,9 +507,9 @@ export default {
                 margin-left: 0px;
                 text-align: center;
                 z-index: 10000 !important;
-                font-size: 17px;
-                font-weight: 200;
-                color: white;
+                font-size: 20px;
+                font-weight: 400;
+                color: rgba(255, 255, 255, 0.74);
             }
         }
     }
