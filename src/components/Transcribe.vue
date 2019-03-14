@@ -239,6 +239,11 @@ export default {
                         y: 20,
                         display: "none"
                     })
+                        .to(".description", 0.5, {
+                            opacity: 0,
+                            y: 20,
+                            display: "none"
+                        })
                         .to("#canvasWrap", 0.5, {
                             display: "block",
                             opacity: 1,
