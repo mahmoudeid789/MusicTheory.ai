@@ -58,7 +58,7 @@
                 </p>
             </div>
             <div class="canvasWrap" id="canvasWrap">
-                <canvas id="canvas"></canvas>
+                <div id="canvas"></div>
             </div>
             <div id="controlWrap">
                 <transition name="fade">
@@ -283,7 +283,7 @@ export default {
                         noteRGB: "234, 234, 236",
                         activeNoteRGB: "52, 201, 178"
                     };
-                    this.visualizer = new mm.Visualizer(
+                    this.visualizer = new mm.PianoRollSVGVisualizer(
                         this.noteSequence,
                         document.getElementById("canvas"),
                         config
@@ -345,7 +345,7 @@ export default {
                             noteRGB: "234, 234, 236",
                             activeNoteRGB: "184, 54, 200"
                         };
-                        this.visualizer = new mm.Visualizer(
+                        this.visualizer = new mm.PianoRollSVGVisualizer(
                             newSequence,
                             document.getElementById("canvas"),
                             config
