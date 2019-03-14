@@ -18,8 +18,8 @@
         >
             <transition name="fade">
                 <div
-                    id="shader"
                     v-if="playerHovered && canvasLoaded"
+                    id="shader"
                     @mouseenter="playerHovered = true"
                     @mouseleave="playerHovered = false"
                 ></div>
@@ -59,6 +59,8 @@
             </div>
             <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
+            </div>
+            <div id="controlWrap">
                 <transition name="fade">
                     <v-btn
                         v-if="playerHovered"
@@ -236,11 +238,16 @@ export default {
                         opacity: 0,
                         y: 20,
                         display: "none"
-                    }).to("#canvasWrap", 0.5, {
-                        display: "block",
-                        opacity: 1,
-                        y: 0
-                    });
+                    })
+                        .to("#canvasWrap", 0.5, {
+                            display: "block",
+                            opacity: 1,
+                            y: 0
+                        })
+                        .to("#controlWrap", 0.5, {
+                            display: "block",
+                            opacity: 1
+                        });
 
                     //Get properties
                     this.audioDuration = this.noteSequence.timeSignatures;
@@ -397,7 +404,7 @@ export default {
             height: 100%;
             margin-top: -40px;
             position: absolute;
-            z-index: 1;
+            z-index: 2;
             background: rgba(50, 56, 58, 0.7);
         }
         #loaded {
@@ -466,6 +473,7 @@ export default {
             margin: auto;
             display: none;
             opacity: 0;
+            position: relative;
             #canvas {
                 display: block;
                 width: 100% !important;
@@ -473,10 +481,18 @@ export default {
                 height: 100% !important;
                 color: #764b7c;
             }
+        }
+        #controlWrap {
+            display: none;
+            height: 100%;
+            width: 100%;
+            margin-top: -270px;
+            opacity: 0;
             #playButton {
                 position: absolute;
-                top: 90px;
-                right: 45%;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
                 z-index: 100;
                 background: rgba(74, 218, 210, 0.1) !important;
                 i {
@@ -485,7 +501,7 @@ export default {
             }
             p {
                 position: absolute;
-                bottom: 35px;
+                bottom: 50px;
                 width: 100%;
                 margin-left: 0px;
                 text-align: center;
