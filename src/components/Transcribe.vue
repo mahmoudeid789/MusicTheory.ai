@@ -171,7 +171,6 @@ export default {
         });
         tl.from(".container", 0.5, {
             opacity: 0,
-            scaleY: 0,
             ease: Expo.easeOut
         })
             .from(".player", 0.5, {
@@ -398,7 +397,7 @@ export default {
             height: 100%;
             margin-top: -40px;
             position: absolute;
-            z-index: -1;
+            z-index: 1;
             background: rgba(50, 56, 58, 0.7);
         }
         #loaded {
@@ -493,6 +492,7 @@ export default {
                 z-index: 10000 !important;
                 font-size: 17px;
                 font-weight: 200;
+                color: white;
             }
         }
     }
