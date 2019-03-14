@@ -8,7 +8,9 @@
         >
             <v-card-text>
                 <v-btn v-for="icon in icons" :key="icon" class="mx-3 primary--text" icon>
-                    <v-icon size="24px">{{ icon }}</v-icon>
+                    <a href="https://github.com/kadinzhang/MusicTheory.ai">
+                        <v-icon size="24px">{{ icon }}</v-icon>
+                    </a>
                 </v-btn>
             </v-card-text>
 
@@ -27,12 +29,7 @@ export default {
     name: "Footer",
     data() {
         return {
-            icons: [
-                "fab fa-github",
-                "fab fa-google-plus",
-                "fab fa-linkedin",
-                "fab fa-instagram"
-            ]
+            icons: ["fab fa-github", "fab fa-twitter"]
         };
     }
 };
@@ -53,6 +50,9 @@ export default {
 }
 .name {
     font-weight: 300;
+}
+a {
+    text-decoration: none;
 }
 </style>
 

@@ -20,8 +20,7 @@
                 <div
                     v-if="playerHovered && canvasLoaded"
                     id="shader"
-                    @mouseenter="playerHovered = true"
-                    @mouseleave="playerHovered = false"
+                    @mouseover="playerHovered = true"
                 ></div>
             </transition>
             <div id="loaded">
@@ -58,14 +57,13 @@
                 </p>
             </div>
             <div class="canvasWrap" id="canvasWrap">
-                <div id="canvas"></div>
+                <canvas id="canvas"></canvas>
             </div>
             <div id="controlWrap">
                 <transition name="fade">
                     <v-btn
                         v-if="playerHovered"
-                        @mouseenter="playerHovered = true"
-                        @mouseleave="playerHovered = false"
+                        @mouseover="playerHovered = true"
                         id="playButton"
                         fab
                         dark
@@ -83,11 +81,7 @@
                     </v-btn>
                 </transition>
                 <transition name="fade">
-                    <p
-                        v-if="playerHovered"
-                        @mouseenter="playerHovered = true"
-                        @mouseleave="playerHovered = false"
-                    >{{fileName}}</p>
+                    <p v-if="playerHovered" @mouseover="playerHovered = true">{{fileName}}</p>
                 </transition>
             </div>
         </div>
@@ -103,25 +97,41 @@
         </div>
 
         <div class="control">
-            <v-container>
-                <v-layout>
-                    <v-flex sm4>
-                        <v-text-field
-                            class="temperature"
-                            v-model="temperature"
-                            label="Temperature"
-                            background-color="#2f3d46"
-                            box
-                        ></v-text-field>
-                    </v-flex>
-                    <v-flex sm3>
-                        <v-text-field class="steps" v-model="steps" label="Steps"></v-text-field>
-                    </v-flex>
-                    <v-flex sm3>
-                        <v-btn outline color="primary" @click="generateMusic">Generate Music!</v-btn>
-                    </v-flex>
-                </v-layout>
-            </v-container>
+            <div class="params">
+                <v-text-field
+                    dark
+                    class="temperature"
+                    v-model="temperature"
+                    label="Temperature"
+                    background-color="#2f3d46"
+                    box
+                ></v-text-field>
+                <v-text-field
+                    dark
+                    class="steps"
+                    box
+                    v-model="steps"
+                    label="Steps"
+                    background-color="#2f3d46"
+                ></v-text-field>
+                <v-text-field
+                    dark
+                    class="chordProgression"
+                    v-model="chordProgression"
+                    label="Chord Progression"
+                    background-color="#2f3d46"
+                    box
+                ></v-text-field>
+            </div>
+            <div style="clear:both"></div>
+            <div class="submit">
+                <v-btn
+                    class="generate-button"
+                    outline
+                    color="primary"
+                    @click="generateMusic"
+                >Generate Music!</v-btn>
+            </div>
         </div>
     </div>
 </template>
@@ -154,7 +164,8 @@ export default {
             rotated: 90,
             //Music generation options
             steps: 500,
-            temperature: 1
+            temperature: 1,
+            chordProgression: "I, vi, IV, V, I"
         };
     },
     mounted: function() {
@@ -260,9 +271,14 @@ export default {
                             display: "block",
                             opacity: 1
                         })
-                        .to(".container", 0.5, {
-                            height: "800px"
-                        })
+                        .to(
+                            ".container",
+                            0.5,
+                            {
+                                maxHeight: "710px"
+                            },
+                            "-=0.25"
+                        )
                         .to(
                             ".control",
                             0.5,
@@ -283,7 +299,7 @@ export default {
                         noteRGB: "234, 234, 236",
                         activeNoteRGB: "52, 201, 178"
                     };
-                    this.visualizer = new mm.PianoRollSVGVisualizer(
+                    this.visualizer = new mm.PianoRollCanvasVisualizer(
                         this.noteSequence,
                         document.getElementById("canvas"),
                         config
@@ -345,7 +361,7 @@ export default {
                             noteRGB: "234, 234, 236",
                             activeNoteRGB: "184, 54, 200"
                         };
-                        this.visualizer = new mm.PianoRollSVGVisualizer(
+                        this.visualizer = new mm.PianoRollCanvasVisualizer(
                             newSequence,
                             document.getElementById("canvas"),
                             config
@@ -379,7 +395,7 @@ export default {
     margin-top: 50px;
     margin-bottom: 75px;
     width: 1000px;
-    height: 510px;
+    max-height: 510px;
     border-radius: 5px;
     padding: 0;
     opacity: 1;
@@ -544,19 +560,39 @@ export default {
             align-items: center;
             margin: auto;
         }
-        .temperature {
-            width: 300px;
+        .params {
+            width: 100%;
             margin: auto;
+            padding: 30px;
+            text-align: center;
+            display: flex;
+            align-content: center;
+            .temperature {
+                width: 70px;
+                margin: 20px;
+            }
+            .steps {
+                display: inline;
+                width: 70px;
+                margin: 20px;
+            }
+            .chordProgression {
+                width: 220px;
+                margin: 20px;
+            }
         }
-        .steps {
-            width: 200px;
-            margin: auto;
-        }
-        .v-btn {
-            width: 200px;
-            margin: auto;
-            height: 60px;
-            margin-top: -25px;
+        .submit {
+            width: 100%;
+            display: flex;
+            align-content: center;
+            .generate-button {
+                float: none;
+                width: 200px;
+                margin: auto;
+                // text-align: center;
+                height: 60px;
+                margin-top: -25px;
+            }
         }
     }
 }
