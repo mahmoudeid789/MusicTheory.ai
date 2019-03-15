@@ -1,33 +1,34 @@
-## Project setup
+## MusicTheory.ai
 
-```
+Intelligent music generation, made possible with progression-trained LSTM recurrent models using magenta.js and tensorflow.js
+
+[![Transcription](./screenshots/main.png 'Transcription')](http://musictheory.ai)
+
+## Build Setup
+
+```bash
+# install dependencies
 npm install
-```
 
-### Compiles and hot-reloads for development
+# serve with hot reload at localhost:8080
+npm run dev
 
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
+# build for production with minification
 npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
 ```
 
-### Run your tests
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-```
-npm run test
-```
+## Built With
 
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+-   [tensorflow.js](https://github.com/tensorflow/tfjs)
+-   [magenta.js](https://github.com/tensorflow/magenta-js)
+-   [vue.js](https://github.com/vuejs/vue)
+    -   [vuetify.js](https://github.com/vuetifyjs/vuetify)
+    -   [vue-router](https://github.com/vuejs/vue-router)
+-   [webpack](https://github.com/webpack/webpack)
+-   [node.js](https://github.com/nodejs/node)
+    -   [express](https://github.com/webpack/webpack)
