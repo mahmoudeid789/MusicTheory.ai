@@ -29,6 +29,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 -   [vue.js](https://github.com/vuejs/vue)
     -   [vuetify.js](https://github.com/vuetifyjs/vuetify)
     -   [vue-router](https://github.com/vuejs/vue-router)
+-   [gsap](https://github.com/greensock/GreenSock-JS)
 -   [webpack](https://github.com/webpack/webpack)
 -   [node.js](https://github.com/nodejs/node)
     -   [express](https://github.com/webpack/webpack)
