@@ -9,8 +9,8 @@
                         </p>
                     </v-flex>
                     <v-flex sm6 class="slogan">
-                        <p>The future of
-                            <br>music creation
+                        <p>Intelligent
+                            <br>Music Creation
                         </p>
                     </v-flex>
                 </v-layout>
@@ -51,13 +51,13 @@
         <section class="information">
             <p class="lead">How it Works</p>
             <p class="leadtxt">
-                MusicTheory.ai uses neural networks for polyphonic music transcription to convert raw audio to sheet music,
+                MusicTheory.ai uses
+                <a href="https://magenta.tensorflow.org/">Magenta.js</a>, running neural networks for polyphonic music transcription to convert raw audio to sheet music,
                 and then expands upon it with progression-trained LSTM (long short-term memory) recurrent models.
                 Models are created with
                 <a
                     href="https://js.tensorflow.org/"
-                >Tensorflow.js</a> and
-                <a href="https://magenta.tensorflow.org/">Magenta.js</a>, hence allowing for fast,
+                >Tensorflow.js</a>, allowing for fast,
                 GPU-accelerated inference on the browser.
             </p>
         </section>
