@@ -17,7 +17,7 @@
             <v-divider></v-divider>
 
             <v-card-text class="copy">
-                &copy;2019 —
+                &copy;{{new Date().getFullYear()}} —
                 <span class="name">Kadin Zhang</span>
             </v-card-text>
         </v-card>
