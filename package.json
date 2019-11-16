@@ -2,6 +2,9 @@
 	"name": "musictheoryai",
 	"version": "0.1.0",
 	"private": true,
+	"engine": {
+		"node": "11.7.0"
+	},
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"start": "node server.js",
