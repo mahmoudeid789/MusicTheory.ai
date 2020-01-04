@@ -88,6 +88,52 @@ export default {
   methods: {
     scrollDown() {}
   },
+  // tl.from(".logo", 1, { y: 20, opacity: 0 })
+  //   .from(
+  //     ".slogan",
+  //     1,
+  //     {
+  //       y: 20,
+  //       opacity: 0
+  //     },
+  //     "-=0.7"
+  //   )
+  //   .from(
+  //     ".s1",
+  //     1,
+  //     {
+  //       y: 20,
+  //       opacity: 0
+  //     },
+  //     "-=0.5"
+  //   )
+  //   .from(
+  //     ".s2",
+  //     1,
+  //     {
+  //       y: 20,
+  //       opacity: 0
+  //     },
+  //     "-=0.5"
+  //   )
+  //   .from(
+  //     ".s3",
+  //     1,
+  //     {
+  //       y: 20,
+  //       opacity: 0
+  //     },
+  //     "-=0.5"
+  //   )
+  //   .from(
+  //     ".go",
+  //     1,
+  //     {
+  //       y: 20,
+  //       opacity: 0
+  //     },
+  //     "-=0.2"
+  //   );
   mounted: function() {
     var tl = new TimelineMax();
     tl.from(".logo", 1, { y: 20, opacity: 0 })
