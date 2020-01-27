@@ -47,7 +47,7 @@
           Transcribing
           <span class="secondary--text">{{fileName}}</span>
           <br />
-          <span class="cpuWarning">Please wait while your neural networks are hard at work!</span>
+          <span class="cpuWarning">Please wait while our model is hard at work!</span>
         </p>
       </div>
       <div class="canvasWrap" id="canvasWrap">
@@ -87,7 +87,7 @@
       <p
         class="p2"
         style="display: none; opacity: 0"
-      >Please allow about half the duration of the audio to transcribe...</p>
+      >Please allow about half the duration of the audio to transcribe. Transcription will take longer without a GPU.</p>
     </div>
 
     <div class="control">
