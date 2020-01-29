@@ -50,13 +50,11 @@
       <p class="lead">About</p>
       <p class="leadtxt">
         MusicTheory.ai is a project currently under development by the Hopkins AI club to explore machine learning.
-        We are using
+        We are building data-trained machine learning models to transcribe and generate music with
         <a
           href="https://magenta.tensorflow.org/"
-        >Magenta.js</a> neural networks for music transcription to convert raw audio to sheet music and building progression-trained models with the goal of expanding upon it. Models are created with
-        <a
-          href="https://js.tensorflow.org/"
-        >Tensorflow.js</a> to allow for GPU-accelerated inference on the browser.
+        >Magenta.js</a> and
+        <a href="https://js.tensorflow.org/">Tensorflow.js</a> for for GPU-accelerated inference on the browser.
       </p>
     </section>
     <v-container>
