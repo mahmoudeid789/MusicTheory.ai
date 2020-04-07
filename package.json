@@ -18,7 +18,7 @@
 		"express": "^4.16.4",
 		"express-force-https": "^1.0.0",
 		"gsap": "^2.1.2",
-		"node-sass": "^4.11.0",
+		"node-sass": "^4.13.0",
 		"sass-loader": "^7.1.0",
 		"vue": "^2.6.9",
 		"vue-router": "^3.0.2",
