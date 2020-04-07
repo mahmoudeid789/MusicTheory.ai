@@ -9,20 +9,6 @@
             <span class="word midnight">cheap.</span>
         </p>
     </div>
-    <!-- <div class="home col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h3 id="resizing-h3" class>
-            <span>
-                <div class="stage">
-                    <div class="cubespinner">
-                        <div class="face1">ii &#8250; V</div>
-                        <div class="face2">IV &#8250; vii&#176;</div>
-                        <div class="face3">IV &#8250; V</div>
-                        <div class="face4">ii &#8250; IV</div>
-                    </div>
-                </div>
-            </span>
-        </h3>
-    </div>-->
 </template>
 
 <script>
@@ -161,7 +147,7 @@ p {
 }
 
 .green {
-    color: #16a085;
+    color: #83677b;
 }
 
 .midnight {
