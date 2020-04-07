@@ -52,7 +52,7 @@
         <section class="information">
             <p class="lead">About</p>
             <p class="leadtxt">
-                MusicTheory.ai is a project currently under development by the Hopkins AI club to explore machine learning.
+                MusicTheory.ai is a project from the Hopkins AI club to explore applications of machine learning in music.
                 We are building data-trained machine learning models to transcribe and generate music with
                 <a
                     href="https://magenta.tensorflow.org/"
