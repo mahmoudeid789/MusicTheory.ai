@@ -38,10 +38,10 @@
                 </v-layout>
                 <v-layout row class="go">
                     <v-flex sm12>
-                        <v-btn outline color="white">
+                        <v-btn outline color="white" style="padding: 0">
                             <router-link
                                 to="app"
-                                style="text-decoration: none; color: white"
+                                style="text-decoration: none; color: white; padding: 6px 16px"
                             >Get Started</router-link>
                         </v-btn>
                         <v-btn outline color="white" @click="scrollDown()">Learn More</v-btn>
@@ -142,6 +142,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-btn__content {
+    width: 122px !important;
+    height: 36px !important;
+}
 .hero {
     height: 60vh;
     min-height: 500px;
