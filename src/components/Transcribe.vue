@@ -36,22 +36,27 @@
                         outline
                         large
                         fab
-                        color="primary"
                         class="uploadButton"
                         id="uploadButton"
+                        color="secondaryBackground"
                         tabindex="0"
                     >
                         <v-icon>add</v-icon>
                     </v-btn>
+                    <p class="p1">
+                        <span class="secondaryBackground--text">Upload an audio file to get started!</span>
+                    </p>
                 </div>
             </div>
 
             <div class="visualizerLoader" id="visualizerLoader">
-                <p>
+                <p class="secondaryBackground--text">
                     Transcribing
                     <span class="secondary--text">{{fileName}}</span>
                     <br />
-                    <span class="cpuWarning">Please wait while our model is hard at work!</span>
+                    <span
+                        class="cpuWarning secondaryBackground--text"
+                    >Please wait while our model is hard at work!</span>
                 </p>
             </div>
             <div class="canvasWrap" id="canvasWrap">
@@ -67,7 +72,7 @@
                         dark
                         large
                         outline
-                        color="secondary"
+                        color="white"
                     >
                         <v-icon dark>
                             {{ //Nested ternaries are cool
@@ -84,10 +89,19 @@
             </div>
         </div>
         <div class="description">
-            <p class="p1">
-                Upload an
-                <span class="secondary--text">audio file</span> to get started!
+            <p class="p1 note">
+                Your audio will be converted to MIDI via
+                <span
+                    class="secondary--text"
+                >Onsets and Frames</span>
+                , a neural network trained for polyphonic piano transcription. Then, you will be able to define parameters and generate your music following a
+                <span
+                    class="secondary--text"
+                >LSTM</span>-based language model.
             </p>
+            <p
+                class="p1 note"
+            >Please note that since all processing takes place locally in your browser, it is recommended that you have a graphics card and have turned on hardware acceleration.</p>
             <p
                 class="p2"
                 style="display: none; opacity: 0"
@@ -101,23 +115,16 @@
                     class="temperature"
                     v-model="temperature"
                     label="Temperature"
-                    background-color="#2f3d46"
+                    background-color
                     box
                 ></v-text-field>
-                <v-text-field
-                    dark
-                    class="steps"
-                    box
-                    v-model="steps"
-                    label="Steps"
-                    background-color="#2f3d46"
-                ></v-text-field>
+                <v-text-field dark class="steps" box v-model="steps" label="Steps" background-color></v-text-field>
                 <v-text-field
                     dark
                     class="chordProgression"
                     v-model="chordProgression"
                     label="Chord Progression"
-                    background-color="#2f3d46"
+                    background-color
                     box
                 ></v-text-field>
             </div>
@@ -128,7 +135,7 @@
                     outline
                     color="primary"
                     @click="generateMusic"
-                >Generate Music!</v-btn>
+                >Generate Music</v-btn>
             </div>
         </div>
     </div>
@@ -227,6 +234,14 @@ export default {
                         },
                         "-=0.5"
                     )
+                    .to(
+                        ".container",
+                        0.5,
+                        {
+                            maxHeight: "510px"
+                        },
+                        "-=0.25"
+                    )
                     .to(".p2", 0.5, {
                         display: "block",
                         opacity: 1
@@ -294,8 +309,8 @@ export default {
                         noteHeight: 10,
                         pixelsPerTimeStep: 5,
                         noteSpacing: 2,
-                        noteRGB: "234, 234, 236",
-                        activeNoteRGB: "52, 201, 178"
+                        noteRGB: "196, 132, 178",
+                        activeNoteRGB: "82, 58, 75"
                     };
                     this.visualizer = new mm.PianoRollCanvasVisualizer(
                         this.noteSequence,
@@ -356,8 +371,8 @@ export default {
                             noteHeight: 10,
                             pixelsPerTimeStep: 5,
                             noteSpacing: 2,
-                            noteRGB: "234, 234, 236",
-                            activeNoteRGB: "184, 54, 200"
+                            noteRGB: "184, 54, 200",
+                            activeNoteRGB: "234, 234, 236"
                         };
                         this.visualizer = new mm.PianoRollCanvasVisualizer(
                             newSequence,
@@ -393,7 +408,7 @@ export default {
     margin-top: 50px;
     margin-bottom: 75px;
     width: 1000px;
-    max-height: 510px;
+    max-height: 600px;
     border-radius: 5px;
     padding: 0;
     opacity: 1;
@@ -407,6 +422,12 @@ export default {
             font-weight: 200;
             opacity: 0.95;
             margin-bottom: 0;
+        }
+        .note {
+            width: 92%;
+            margin: auto;
+            text-align: start;
+            margin-bottom: 13px;
         }
     }
     .header {
@@ -444,7 +465,7 @@ export default {
             margin-top: -40px;
             position: absolute;
             z-index: 2;
-            background: rgba(50, 56, 58, 0.7);
+            background: rgba(153, 130, 147, 0.8);
         }
         #loaded {
             text-align: center;
@@ -533,7 +554,7 @@ export default {
                 top: 50%;
                 transform: translate(-50%, -50%);
                 z-index: 100;
-                background: rgba(74, 218, 210, 0.1) !important;
+                background: rgba(148, 105, 137, 0) !important;
                 i {
                     font-size: 40px;
                 }

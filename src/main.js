@@ -24,8 +24,8 @@ Vue.use(Vuetify, {
 		primary: '#c484b2',
 		secondary: '#c484b2',
 		accent: '#303747',
-		background: '#69485f',
-		secondaryBackground: '#52394b',
+		background: '#c9c7c7',
+		secondaryBackground: '#523a4b',
 		error: '#ff643d',
 	},
 });
